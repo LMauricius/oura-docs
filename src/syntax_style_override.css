@@ -1,0 +1,14 @@
+/*Syntax definition notes*/
+
+/*Region marker (Syntax note markers)*/
+.ouraspec .re {
+    font-size: 0px !important;
+}
+
+/*Annotation (Syntax notes)*/
+.ouraspec .an {
+    vertical-align: super;
+    font-style: italic;
+    font-family: 'Arial Narrow Bold';
+    font-size: small;
+}

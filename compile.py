@@ -171,7 +171,7 @@ def main():
     Path(builddir).mkdir(parents=True, exist_ok=True)
     with open(f"{builddir}/highlight.theme", "w+") as ofile:
         ofile.write(result.stdout.decode("utf8"))
-    """subprocess.run(
+    subprocess.run(
         [
             "pandoc",
             f"--template={srcdir}/pandoc-template-syntax.css",
@@ -182,7 +182,7 @@ def main():
             targetdir + "/syntax_style.css",
         ]
         + [x for d in syntaxDefs for x in ("--syntax-definition", d)]
-    )"""
+    )
 
     # get source
     src = getSourceStructure(contentdir, -1)
@@ -230,7 +230,11 @@ def main():
                 print(f"Building {outfilename}")
                 buildHtmlFile(templ, src, infilename, outfilename)
 
+    # Copy needed files
     shutil.copy2(srcdir + "/style.css", targetdir + "/style.css")
+    shutil.copy2(
+        srcdir + "/syntax_style_override.css", targetdir + "/syntax_style_override.css"
+    )
 
 
 main()

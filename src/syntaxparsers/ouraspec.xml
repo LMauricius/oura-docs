@@ -5,33 +5,8 @@
 	<!ENTITY beforeDigit "(?&lt;![\.\w[:^ascii:]])">
 	<!ENTITY beforePointFloat "(?&lt;![\w[:^ascii:]])">
 
-	<!-- Python 2 style. Syntax:
-		1. start character '%'
-		2. [optional] Mapping key, e.g. '(foo)'
-		3. [optional] Conversion flags, one of '#0- +'
-		4. [optional] Minimum width, integer or '*'
-		5. [optional] Precision, '.' followed by integer or '*'
-		6. [optional] Length modifier, one of 'hlL'
-		7. conversion type, one of 'crsdiouxXeEfFgG%'
-		[Special cases: %prog and %default - see http://docs.chakral.org/library/optparse.html]
-	-->
 	<!ENTITY strsubstitution_py2 "&#37;(?:(?:\([a-zA-Z0-9_]+\))?[#0\- +]?(?:[1-9][0-9]*|\*)?(?:\.(?:[1-9][0-9]*|\*))?[hlL]?[crsdiouxXeEfFgG&#37;]|prog|default)">
-	<!-- http://docs.chakral.org/2/library/string.html#format-string-syntax:
-	     replacement_field ::=  "{" [field_name] ["!" conversion] [":" format_spec] "}"
-	     field_name        ::=  arg_name ("." attribute_name | "[" element_index "]")*
-	     arg_name          ::=  [identifier | integer]
-	     attribute_name    ::=  identifier
-	     element_index     ::=  integer | index_string
-	     index_string      ::=  <any source character except "]"> +
-	     conversion        ::=  "r" | "s"
-	     format_spec       ::=  [[fill]align][sign][#][0][width][,][.precision][type]
-	     fill              ::=  <any character>
-	     align             ::=  "<" | ">" | "=" | "^"
-	     sign              ::=  "+" | "-" | " "
-	     width             ::=  integer
-	     precision         ::=  integer
-	     type              ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
-	-->
+	
 	<!ENTITY strsubstitution_py3 "\{(?:(?:[a-zA-Z0-9_]+|[0-9]+)(?:\.[a-zA-Z0-9_]+|\[[^ \]]+\])*)?(?:![rs])?(?::(?:[^}]?[&lt;&gt;=^])?[ +-]?#?0?[0-9]*(?:\.[0-9]+)?[bcdeEfFgGnosxX&#37;]?)?\}">
 
 	<!ENTITY rawString "(?:ru|u?r|)(?:'(?:[^']++|\\')*+'|&quot;(?:[^&quot;]++|\\&quot;)*+&quot;)">
@@ -39,7 +14,7 @@
 	<!ENTITY string "&rawString;|&formatString;">
 ]>
 
-<language name="ChakraL" version="1" style="chakral" indenter="normal" kateversion="5.0" section="Scripts" extensions="*.ckr;*.ckri" mimetype="application/x-chakral;text/x-chakral" casesensitive="1" author="Mauricio Šmit" license="">
+<language name="OuraSpec" version="1" style="ouraspec" indenter="normal" kateversion="5.0" section="Scripts" extensions="*.ora;*.orai" mimetype="application/x-oura;text/x-oura" casesensitive="1" author="Mauricio Šmit" license="">
 	<highlighting>
 		<list name="import">
 		</list>
@@ -49,9 +24,8 @@
 			<item>module</item>
 			<item>api</item>
 		</list>
-		<list name="traitspecifiers">
-			<item>explicit</item>
-			<item>final</item>
+		<list name="trait-specifiers">
+			<item>strictly</item>
 		</list>
 		<list name="operators">
 			<item>whether</item>
@@ -65,15 +39,18 @@
 			<item>as</item>
 			<item>new</item>
 		</list>
-		<list name="memoryspecifiers">
-			<item>mutable</item>
+		<list name="decl-specifiers">
+			<item>var</item>
 			<item>const</item>
-			<item>final</item>
-			<item>volatile</item>
+			<item>ptr</item>
+			<item>ref</item>
+
+			<item>mut</item>
+			<item>uni</item>
+			<item>vol</item>
 			<item>static</item>
 		</list>
 		<list name="flow">
-			<item>ok</item>
 			<item>break</item>
 			<item>continue</item>
 			<item>return</item>
@@ -100,39 +77,42 @@
 			<item>False</item>
 		</list>
 		<list name="builtintraits">
-			<item>int8</item>
-			<item>int16</item>
-			<item>int32</item>
-			<item>int64</item>
-			<item>int128</item>
-			<item>float32</item>
-			<item>float64</item>
-			<item>bool</item>
+			<item>Int8</item>
+			<item>Int16</item>
+			<item>Int32</item>
+			<item>Int64</item>
+			<item>Int128</item>
+			<item>Float32</item>
+			<item>Float64</item>
+			<item>Bool</item>
 		</list>
 		<contexts>
+			<!--Language generals-->
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+
+				<IncludeRules context="MetaSyntax" />
+
 				<DetectSpaces attribute="Normal Text"/>
 
 				<keyword attribute="Import" String="import" context="#stay"/>
 				<keyword attribute="Definition Keyword" String="defs" context="#stay"/>
-				<keyword attribute="Trait Specifier" String="traitspecifiers" context="#stay"/>
-				<keyword attribute="Memory Specifier" String="memoryspecifiers" context="#stay"/>
+				<keyword attribute="Trait Specifier" String="trait-specifiers" context="#stay"/>
+				<keyword attribute="Ownership Specifier" String="ownership-specifiers" context="#stay"/>
+				<keyword attribute="Declaration Specifier" String="decl-specifiers" context="#stay"/>
 				<keyword attribute="Operator Keyword" String="operators" context="#stay"/>
 				<keyword attribute="Flow Control Keyword" String="flow" context="#stay"/>
 				<keyword attribute="Flow Control Keyword" String="patternmatching" context="Pattern Matching" lookAhead="1" firstNonSpace="1"/>
 				<keyword attribute="Special Variable" String="specialvars" context="#stay"/>
 				
-				<DetectChar attribute="Normal Text" char="{" context="Dictionary" beginRegion="Dictionary"/>
+				<DetectChar attribute="Normal Text" char="{" context="Procedure" beginRegion="Procedure"/>
 				<DetectChar attribute="Normal Text" char="[" context="List" beginRegion="List"/>
-				<DetectChar attribute="Normal Text" char="(" context="Tuple" beginRegion="Tuple"/>
+				<DetectChar attribute="Normal Text" char="(" context="Object" beginRegion="Object"/>
 
 				<Detect2Chars attribute="Comment"  char="*" char1="*" context="Star comment"/>
 
 				<IncludeRules context="Number" />
 				<IncludeRules context="CommentVariants" />
 				<IncludeRules context="StringVariants" />
-
-				<DetectIdentifier attribute="Normal Text"/>
 
 				<RegExpr attribute="Decorator" String="@[_a-zA-Z[:^ascii:]][\._a-zA-Z0-9[:^ascii:]]*" firstNonSpace="true"/>
 				<Detect2Chars attribute="Operator" char=":" char1="=" context="#stay"/>
@@ -142,13 +122,23 @@
 
 				<Int attribute="Error"/>
 			</context>
+
+			<!--Syntax symbol modifiers-->
+			<context name="MetaSyntax" attribute="Normal Text" lineEndContext="#stay">
+				<DetectSpaces attribute="Normal Text"/>
+				<DetectChar attribute="Syntax Note Marker" char="⁽" context="SyntaxNote"/>
+			</context>
+			<context name="SyntaxNote" attribute="Syntax Note" lineEndContext="#stay">
+				<DetectSpaces/>
+				<DetectChar attribute="Syntax Note Marker" char="⁾" context="#pop"/>
+			</context>
+
+			<!--Sub-features-->
 			<context name="MultiLineExpr" attribute="Normal Text" lineEndContext="#pop" fallthrough="1" fallthroughContext="#pop">
 				<DetectSpaces attribute="Normal Text"/>
 				<IncludeRules context="StringVariants" />
 			</context>
 
-			<!-- https://docs.chakral.org/2/reference/lexical_analysis.html#integer-and-long-integer-literals -->
-			<!-- https://docs.chakral.org/3/reference/lexical_analysis.html#integer-literals -->
 			<context name="Number" attribute="Normal Text" lineEndContext="#pop">
 				<!-- fast path -->
 				<RegExpr String="&beforeDigit;[0-9]|&beforePointFloat;\.[0-9]" context="AssumeNumber" lookAhead="1"/>
@@ -163,7 +153,7 @@
 				<!-- Float: 1.1 ; 1. ; .1 ; 1e3 ; 1.1e3 ; 1.e3 ; .1e3 -->
 				<RegExpr attribute="Float" String="(?:&digitPart;(?:\.(?:&digitPart;)?)?|\.&digitPart;)[eE][\+\-]?&digitPart;|&digitPart;\.(?:&digitPart;)?|\.&digitPart;" context="CheckSuffixError"/>
 				<!-- Decimal: 123 ; 000 -->
-				<!-- l and L are chakral2 suffixes -->
+				<!-- l and L are oura2 suffixes -->
 				<RegExpr attribute="Int" String="(?:[1-9](?:_?\d)*|0(?:_?0)*)[lL]?" context="CheckSuffixError"/>
 			</context>
 			<context name="CheckSuffixError" attribute="Normal Text" lineEndContext="#pop#pop" fallthrough="1" fallthroughContext="#pop#pop">
@@ -176,14 +166,7 @@
 			</context>
 
 			<context name="Pattern Matching" attribute="Flow Control Keyword" lineEndContext="#pop">
-				<!--
-					Python 3.10: https://docs.chakral.org/3.10/reference/compound_stmts.html#the-match-statement
-					( 'match' | 'case' ) expression ':'
-					exclude:
-					( 'match' | 'case' ) ( 'if' | 'for' | '.' | ':' | '=' | ',' | ']' | ')' ) ...
-				-->
 				<RegExpr attribute="Flow Control Keyword" String="\w++(?=\s+(?!(?:if|for)\b)[\w'&quot;~]|\s*+(?![.:=\]),]|(?:if|for)\b)((?:&string;|[^#;(){}]|\(\)|\((?1)\)|\{\}|\{(\s*+(?:(?:&string;|[a-zA-Z0-9.]++)\s*+:\s*+(?:&string;|[^#;(){},]|\(\)|\((?1)\)|\{\}|\{(?2)\})++,?)*+)\})+?):)|" context="#pop"/>
-				<DetectIdentifier attribute="Normal Text" context="#pop"/>
 			</context>
 
 			<context name="#CheckForString" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
@@ -197,8 +180,6 @@
 				<IncludeRules context="StringVariants"/>
 			</context>
 
-			<!-- https://docs.chakral.org/2/reference/lexical_analysis.html#string-literals -->
-			<!-- https://docs.chakral.org/3/reference/lexical_analysis.html#string-and-bytes-literals -->
 			<context name="StringVariants" attribute="Normal Text" lineEndContext="#stay">
 				<!-- fast path -->
 				<RegExpr String="(?:u|r|b|f|ur|fr|rf|br|rb)?['&quot;]" insensitive="true" context="AssumeStringVariants" lookAhead="1"/>
@@ -235,8 +216,8 @@
 				<RegExpr attribute="Raw B-String" String="(?:br|rb)&quot;"             insensitive="true" context="#pop!Raw Q-B-String"/>
 			</context>
 
-			<!-- https://docs.chakral.org/2/reference/lexical_analysis.html#string-literals -->
-			<!-- https://docs.chakral.org/3/reference/lexical_analysis.html#string-and-bytes-literals -->
+			<!-- https://docs.oura.org/2/reference/lexical_analysis.html#string-literals -->
+			<!-- https://docs.oura.org/3/reference/lexical_analysis.html#string-and-bytes-literals -->
 			<context name="CommentVariants" attribute="Normal Text" lineEndContext="#stay">
 				<!-- fast path -->
 				<RegExpr String="(?:u|r|ur)?['&quot;]" insensitive="true" firstNonSpace="true" context="AssumeCommentVariants" lookAhead="1"/>
@@ -248,9 +229,9 @@
 				<RegExpr attribute="Comment" String="(?:u?r?)&quot;"             insensitive="true" context="#pop!Single Q-comment"/>
 			</context>
 
-			<context name="Dictionary" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
+			<context name="Procedure" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces/>
-				<DetectChar attribute="Normal Text" char="}" context="#pop" endRegion="Dictionary"/>
+				<DetectChar attribute="Normal Text" char="}" context="#pop" endRegion="Procedure"/>
 				<IncludeRules context="StringVariants" />
 				<IncludeRules context="Normal" />
 			</context>
@@ -262,9 +243,9 @@
 				<IncludeRules context="Normal" />
 			</context>
 
-			<context name="Tuple" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
+			<context name="Object" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces/>
-				<DetectChar attribute="Normal Text" char=")" context="#pop" endRegion="Tuple"/>
+				<DetectChar attribute="Normal Text" char=")" context="#pop" endRegion="Object"/>
 				<IncludeRules context="StringVariants" />
 				<IncludeRules context="Normal" />
 			</context>
@@ -280,14 +261,12 @@
 			<context name="Star comment" attribute="Comment" lineEndContext="#pop">
 				<DetectSpaces />
 				<!--IncludeRules context="##Comments" /-->
-				<DetectIdentifier/>
 			</context>
 
 			<context name="Triple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces/>
 				<StringDetect attribute="Comment" String="'''" context="#pop" endRegion="Triple A-region"/>
 				<!--IncludeRules context="##Comments" /-->
-				<DetectIdentifier/>
 				<IncludeRules context="stringescape"/>
 				<LineContinue attribute="String Char" context="#stay"/>
 			</context>
@@ -296,7 +275,6 @@
 				<DetectSpaces/>
 				<StringDetect attribute="Comment" String="&quot;&quot;&quot;" context="#pop" endRegion="Triple Q-region"/>
 				<!--IncludeRules context="##Comments" /-->
-				<DetectIdentifier/>
 				<IncludeRules context="stringescape"/>
 				<LineContinue attribute="String Char" context="#stay"/>
 			</context>
@@ -305,7 +283,6 @@
 				<DetectSpaces/>
 				<DetectChar attribute="Comment" char="'" context="#pop"/>
 				<!--IncludeRules context="##Comments" /-->
-				<DetectIdentifier/>
 				<IncludeRules context="stringescape"/>
 				<LineContinue attribute="String Char" context="#stay"/>
 			</context>
@@ -314,7 +291,6 @@
 				<DetectSpaces/>
 				<DetectChar attribute="Comment" char="&quot;" context="#pop"/>
 				<!--IncludeRules context="##Comments" /-->
-				<DetectIdentifier/>
 				<IncludeRules context="stringescape"/>
 				<LineContinue attribute="String Char" context="#stay"/>
 			</context>
@@ -372,7 +348,6 @@
 			<!-- Triple-quoted A-strings -->
 			<context name="Triple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces attribute="String"/>
-				<DetectIdentifier attribute="String"/>
 				<IncludeRules context="stringescape"/>
 				<IncludeRules context="stringformat"/>
 				<StringDetect attribute="String" String="'''" context="#pop!#CheckForString" endRegion="Triple A-region"/>
@@ -381,7 +356,6 @@
 
 			<context name="Raw Triple A-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces attribute="Raw String"/>
-				<DetectIdentifier attribute="Raw String"/>
 				<Detect2Chars attribute="Raw String" char="\" char1="'"/>
 				<Detect2Chars attribute="Raw String" char="\" char1="\"/>
 				<IncludeRules context="stringformat"/>
@@ -390,7 +364,6 @@
 
 			<context name="Triple A-F-String" attribute="F-String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces attribute="F-String"/>
-				<DetectIdentifier attribute="F-String"/>
 				<IncludeRules context="stringescape"/>
 				<IncludeRules context="stringinterpolation"/>
 				<StringDetect attribute="F-String" String="'''" context="#pop!#CheckForString" endRegion="Triple A-region"/>
@@ -399,7 +372,6 @@
 
 			<context name="Raw Triple A-F-String" attribute="Raw F-String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces attribute="Raw F-String"/>
-				<DetectIdentifier attribute="Raw F-String"/>
 				<Detect2Chars attribute="Raw F-String" char="\" char1="'"/>
 				<Detect2Chars attribute="Raw F-String" char="\" char1="\"/>
 				<IncludeRules context="stringinterpolation"/>
@@ -423,7 +395,6 @@
 			<!-- Triple-quoted Q-strings -->
 			<context name="Triple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<DetectSpaces attribute="String"/>
-				<DetectIdentifier attribute="String"/>
 				<IncludeRules context="stringescape"/>
 				<IncludeRules context="stringformat"/>
 				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="#pop!#CheckForString" endRegion="Triple Q-region"/>
@@ -584,12 +555,14 @@
 		</contexts>
 
 		<itemDatas>
+			<itemData name="Syntax Note" defStyleNum="dsAnnotation" spellChecking="false"/>
+			<itemData name="Syntax Note Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
 			<itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false"/>
 			<itemData name="Definition Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Operator" defStyleNum="dsOperator" spellChecking="false"/>
 			<itemData name="Operator Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Trait Specifier" defStyleNum="dsKeyword" spellChecking="false"/>
-			<itemData name="Memory Specifier" defStyleNum="dsKeyword" spellChecking="false"/>
+			<itemData name="Declaration Specifier" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Flow Control Keyword" defStyleNum="dsControlFlow" spellChecking="false"/>
 			<itemData name="Builtin Function" defStyleNum="dsBuiltIn" spellChecking="false"/>
 			<itemData name="Special Variable" defStyleNum="dsVariable" spellChecking="false"/>

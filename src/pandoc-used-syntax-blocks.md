@@ -1,7 +1,7 @@
-```chakral
+```oura
 a=3 **comment
 ```
 
-```chakralspec
-a=3 **comment
+```ouraspec
+⁽(⁾a=3⁽)⁾⁽optional⁾ **comment
 ```
