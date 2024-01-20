@@ -1,0 +1,65 @@
+
+<!doctype html>
+<html>
+    <head>
+        <title>code reading</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="syntax_style.css">
+        <link rel="stylesheet" href="syntax_style_override.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="tableofcontents">
+                    <p class="tableofcontents_title">Contents</p>
+                            <li><a href="introduction.html">1&nbspIntroduction</a>
+        <ul>
+            <li><a href="language_goals.html">1&nbspLanguage goals</a>
+            </li>
+            <li><b>2 Code reading</b>
+            </li>
+            <li><a href="file_format.html">3&nbspFile format</a>
+            </li>
+            <li><a href="module_system.html">4&nbspModule system</a>
+            </li>
+        </ul>
+        </li>
+        <li>2&nbspLanguage features
+        <ul>
+            <li><a href="objects.html">1&nbspObjects</a>
+            </li>
+        </ul>
+        </li>
+
+                </div>
+            </div>
+            <div class="main">
+                <div class="pagecontent">
+                    <h1 id="code-reading">Code reading</h1>
+<h2 id="examples">Examples</h2>
+<p>Code examples are used to better convey language concepts we introduced. Notes are put in comments started with a double star (<code class="sourceCode oura">code <span class="co">** comment</span></code>), which are meant for humans and ignored by the compiler.</p>
+<div class="sourceCode" id="cb1" data-caption="A Hello world example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">** This is a &#39;Hello world!&#39; example</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">** We need to write to console</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>use write <span class="cf">with</span> Console (<span class="kw">module</span> Std)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">** The main program</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>main <span class="kw">def</span>() <span class="op">=&gt;</span> {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    write <span class="st">&quot;Hello world!&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="syntax-definitions">Syntax definitions</h2>
+<p>In these docs, the language syntax is defined in code blocks. Sometimes, syntactic structures are not mandatory or can repeat, in which cases we use one of the following meta-markers:</p>
+<ul>
+<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span></code> - The previous structure can, or may not be used</li>
+<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span></code> - The structure is optional, but can also repeat</li>
+<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span></code> - The structure is repeating, but each entry is separated by a comma, possibly followed by whitespace. All in a single line.</li>
+<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">linelist</span><span class="re">⁾</span></code> - The structure is repeating, but each entry is in its own line. Empty/whitespace lines are allowed inbetween for readability.</li>
+</ul>
+<p>The parts of code are also often surrounded by meta-parentheses like this: <code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">(</span><span class="re">⁾</span>code<span class="re">⁽</span><span class="an">)</span><span class="re">⁾</span></code>. This is used to note that the meta-markers apply to a longer part of code, like this: <code class="sourceCode ouraspec">some code <span class="re">⁽</span><span class="an">(</span><span class="re">⁾</span>some marked code<span class="re">⁽</span><span class="an">)optional</span><span class="re">⁾</span> some more code</code></p>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

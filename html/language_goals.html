@@ -1,0 +1,57 @@
+
+<!doctype html>
+<html>
+    <head>
+        <title>language goals</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="syntax_style.css">
+        <link rel="stylesheet" href="syntax_style_override.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="tableofcontents">
+                    <p class="tableofcontents_title">Contents</p>
+                            <li><a href="introduction.html">1&nbspIntroduction</a>
+        <ul>
+            <li><b>1 Language goals</b>
+            </li>
+            <li><a href="code_reading.html">2&nbspCode reading</a>
+            </li>
+            <li><a href="file_format.html">3&nbspFile format</a>
+            </li>
+            <li><a href="module_system.html">4&nbspModule system</a>
+            </li>
+        </ul>
+        </li>
+        <li>2&nbspLanguage features
+        <ul>
+            <li><a href="objects.html">1&nbspObjects</a>
+            </li>
+        </ul>
+        </li>
+
+                </div>
+            </div>
+            <div class="main">
+                <div class="pagecontent">
+                    <h1 id="language-goals">Language goals</h1>
+<p>Oura is developed with love towards both the programmer and the end-user. Here is the list of goals that the author believes will help make the language better.</p>
+<ul>
+<li><strong>Fast execution</strong> - Oura is designed with optimizability in mind. Compiled code should run as fast as humanly possible.</li>
+<li><strong>Portability</strong> - Compilable for all systems and (mostly) platform-agnostic behavior. For real this time.</li>
+<li><strong>Safety</strong> - Fast or powerful code shouldn’t be gatekept as a harder or less safe skill. Accessibility and speed/power aren’t mutually exclusive.</li>
+<li><strong>Obvious semantics</strong> - While function overloading is mostly OK, language features and symbols should <em>never</em> be.</li>
+<li><strong>Reusability</strong> - Language features should rarely be context-dependant. The programmers can mix-and-match them as they see fit</li>
+<li><strong>Backwards compatibility</strong> - The module system should ensure old versions of a library can be replaced with a new one with as little pain as possible.</li>
+<li><strong>API implies the ABI</strong> - The binary compatibility should be evident from the explicit specification in the API and the platform/binary file format used</li>
+<li><strong>Interoperability with other languages</strong> - Oura shouldn’t require a huge ecosystem built specifically for it, but should be an interface to language-agnostic specifications.</li>
+<li><strong>Reduce the amount of work</strong> - Even if you consider the programmer a wizard, their work and time aren’t zero-cost. We don’t expect the programmers to repeat work that can be done once and then shared.</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
