@@ -12,3 +12,10 @@
     font-family: 'Arial Narrow Bold';
     font-size: small;
 }
+/*Comments*/
+.ouraspec .co {
+    vertical-align: baseline;
+    font-style: italic;
+    font-family: 'Arial Narrow Bold';
+    font-size: 0.75em;
+}
