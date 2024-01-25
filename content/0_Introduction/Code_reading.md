@@ -25,3 +25,11 @@ Sometimes, syntactic structures are not mandatory or can repeat, in which cases 
 - `⁽linelist⁾`{.ouraspec} - The structure is repeating, but each entry is in its own line. Empty/whitespace lines are allowed inbetween for readability.
 
 The parts of code are also often surrounded by meta-parentheses like this: `⁽(⁾code⁽)⁾`{.ouraspec}. This is used to note that the meta-markers apply to a longer part of code, like this: `some code ⁽(⁾some marked code⁽)optional⁾ some more code`{.ouraspec}
+
+## Bracket types and names
+We use the following kinds of brackets:
+
+- `(` and `)`: round *parens* (parentheses)
+- `[` and `]`: square *brackets*
+- `{` and `}`: curly *braces*
+- `<` and `>`: angular *chevrons*
