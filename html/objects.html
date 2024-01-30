@@ -41,18 +41,22 @@
 <p>Objects are the most fundamental entities of Oura language. They are used to contain data we need, bind related values, perform various mathematical and procedural operations and actions on data.</p>
 <p>In Oura, data, functions and modules are all objects.</p>
 <h2 id="usage">Usage</h2>
-<p>The objects are only useful when they contain some properties, usually values. The objects can be seen as ‘wrappers’ or ‘groups’ for related values, and often correspond to real-life items, concepts, and structures. The values contained in an object are called its <em>members</em>.</p>
-<p><em>Values</em> are holders of <em>data</em>, alongside properties that tell us how we can handle the values. The <em>data</em> can be anything from numbers and text to more complex structures, but is always an object too. When we set a value to hold an object, we say it has been <em>assigned</em> the object. The first assignment that is done as soon as we declare a value is called <em>initialization</em>. A value that has been declared and has constraints specified but is not initialized is called a <em>prototype</em> value.</p>
-<div class="sourceCode" id="cb1" data-caption="Numbers and objects"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>pointA <span class="op">=</span> (x <span class="op">=</span> <span class="fl">1.5</span>, y <span class="op">=</span> <span class="fl">2.4</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>pointB <span class="op">=</span> (x <span class="op">=</span> <span class="fl">4.8</span>, y <span class="op">=</span> <span class="fl">6.2</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>myRectangle <span class="op">=</span> (</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    topLeftCorner <span class="op">=</span> pointA</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    bottomRightCorner <span class="op">=</span> pointB</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>)</span>
+<p>The objects are only useful when they contain some <strong>values</strong>. The objects can be seen as ‘wrappers’ or ‘groups’ for related values, and often correspond to real-life items, concepts, and structures. The values contained in an object are called its <em>members</em>.</p>
+<h3 id="values">Values</h3>
+<p>Values consist of: - <strong>Name</strong> (optional): the name we use to identify a value. Objects can also have a number of unnamed values. Such objects are called <strong>tuples</strong>. - <strong>Content</strong>: can be anything from numbers and text to more complex structures. It is an object that the value holds. - <strong>Constraint</strong>: a set of requirements that the content of the value always satisfies. It is a combination of: - <strong>Required trait</strong>: an object that the content always has traits of. For example, <code class="sourceCode oura">Integer</code>, <code class="sourceCode oura">Real</code> or <code class="sourceCode oura">String</code>. More about this on the trait system pages. - <strong>Handle modes</strong>: properties that describe what you an do with the value</p>
+<p>When we set a value’s content to an object, we say it has been <strong>assigned</strong> the object. If we change the content to another object, that is a <strong>reassignment</strong>. A special kind of assignment that cannot be <strong>reassigned</strong> is called a <strong>definition</strong>. The first assignment that is done as soon as we declare a value is called <strong>initialization</strong>. A value that has been declared and has constraints specified but is not initialized is called a <strong>prototype</strong> value.</p>
+<div class="sourceCode" id="cb1" data-caption="A named value"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">** the *name* of the value is &#39;score&#39;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co">** the *content* of the value is number 100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="co">** the *required trait* of the value is &#39;Integer&#39; (a number without a fraction)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">** it has a non-default handle mode of a &#39;variable&#39;, meaning we can reassign it</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>write<span class="op">!</span> y topLeftCorner myRectangle</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co">** The above line prints 2.4</span></span></code></pre></div>
-<p>The members are usually named values, which helps us identify what their purpose is. Some values can change over time, whether by assigning them with other data, or their data being modified. For that reason it’s helpful to specify a <em>constraint</em> for the value. No matter which data is assigned to the value, it never violates the constraint. The constraint can be explicitly specified, or inferred from the value initialization.</p>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>score <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>write<span class="op">!</span> score</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co">** The above line prints &#39;200&#39; to screen</span></span></code></pre></div>
+<p>No matter which data is assigned to the value, it never violates the constraint. The constraint can be explicitly specified, or inferred from the value initialization.</p>
 <div class="sourceCode" id="cb2" data-caption="Constraint violation"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>a: Number <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>a <span class="op">=</span> <span class="dv">5</span> <span class="co">**This is OK</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
@@ -61,51 +65,94 @@
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>c: Number <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>c <span class="op">=</span> <span class="st">&quot;Six&quot;</span> <span class="co">**Error: Can&#39;t assign a String to a Number value c</span></span></code></pre></div>
+<div class="sourceCode" id="cb3" data-caption="Constraint violation (with trait inferrence)"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>a <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>a <span class="op">=</span> <span class="dv">5</span> <span class="co">**OK</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>b <span class="op">=</span> <span class="st">&quot;Monday&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>b <span class="op">=</span> <span class="st">&quot;Tuesday&quot;</span> <span class="co">**OK</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>c <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>c <span class="op">=</span> <span class="st">&quot;Six&quot;</span> <span class="co">**Error</span></span></code></pre></div>
+<h3 id="member-values">Member values</h3>
+<p>Values that are contained in an object are called <strong>members</strong> of that object. That object is called a <strong>master</strong> of its members.</p>
+<p>Declaring a member value also defines a <strong>getter function</strong> value in the master’s surrounding context. The getter function is assigned to a value of the same name as the member value. Calling the getter function with the master as its argument returns the value of the member. So if we have a local value <code>player</code> whose content (object) has a member <code>score</code>, we can handle the score value as <code class="sourceCode oura">score player</code>. That should be read as “<em>the</em> score <em>of</em> player”. In this case the <code>score</code> is a member of the <code>player</code>s content, but outside of it <code>score</code> is a getter function value.</p>
+<div class="sourceCode" id="cb4" data-caption="Numbers and other objects"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>pointA <span class="kw">def</span> (x <span class="op">=</span> <span class="fl">1.5</span>, y <span class="op">=</span> <span class="fl">2.4</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>pointB <span class="kw">def</span> (x <span class="op">=</span> <span class="fl">4.8</span>, y <span class="op">=</span> <span class="fl">6.2</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>myRectangle <span class="kw">def</span> (</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    topLeftCorner <span class="op">=</span> pointA</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    bottomRightCorner <span class="op">=</span> pointB</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="co">** 2.4 is the content of the first &#39;y&#39;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="co">** y is a member value of the first point object</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="co">** the first point object is the content of &#39;pointA&#39;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a><span class="co">** a copy of the first point object is the content of &#39;topLeftCorner&#39;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="co">** topLeftCorner is a member of the rectangle object</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a><span class="co">** the rectangle object is the content of &#39;myRectangle&#39; value</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a><span class="co">** here, x, y, topLeftCorner and bottomRightCorner are all getter functions</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>write<span class="op">!</span> y topLeftCorner myRectangle</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="co">** The above line prints 2.4</span></span></code></pre></div>
+<p>All values are members of <em>something</em>, except for the <strong>context</strong> values. It is only important for now to know that there is a <strong>local context</strong> at every place of the code, whose members (a.k.a. the <strong>local values</strong>) can be handled by their name alone. The local context can be handled with the <code class="sourceCode oura">local</code> keyword.</p>
+<div class="sourceCode" id="cb5" data-caption="Local values"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">module</span> Io Std</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">using</span> write <span class="cf">with</span> Console Io</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>main <span class="kw">def</span>() <span class="op">=&gt;</span> {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    foo <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>    <span class="co">** &#39;foo&#39; is a local value</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>    write<span class="op">!</span> foo <span class="co">** foo is handled just by its name &#39;foo&#39;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>               <span class="co">** prints &#39;100&#39;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    write<span class="op">!</span> foo local <span class="co">** same as above, &#39;local&#39; keyword handles the local context</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>                     <span class="co">** prints &#39;100&#39;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="syntax">Syntax</h2>
 <h3 id="object-literal">Object literal</h3>
-<p>The object literals are written as a series of member declarations surrounded by parentheses (<code>(</code> and <code>)</code>).</p>
-<div class="sourceCode" id="cb3" data-caption="Structure"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">** Empty object:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="co">** Singleline:</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>(«Member_Declaration»<span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="co">** Multiline:</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>«Member_Declaration»<span class="re">⁽</span><span class="an">list⤸linelist</span><span class="re">⁾</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb4" data-caption="Example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">** Empty object</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>()</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">** Singleline</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>(x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="co">** Multiline</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>(</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    z<span class="op">=</span><span class="dv">5</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>)</span></code></pre></div>
-<h3 id="member-declaration">Member declaration</h3>
-<div class="sourceCode" id="cb5" data-caption="Structure"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">** Complete declaration:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>«Value_Specification» «Initialization»</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="co">** Prototype declaration:</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>«Value_Specification»</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="co">** Unnamed declaration: </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>«Expression»</span></code></pre></div>
-<div class="sourceCode" id="cb6" data-caption="Example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="co">** Object with complete declaration:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>(score <span class="kw">var</span>: Integer <span class="op">=</span> <span class="dv">100</span>)</span>
+<p>The object literals are written as a series of member declarations surrounded by parens (<code>(</code> and <code>)</code>).</p>
+<div class="sourceCode" id="cb6" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="co">** Empty object:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="co">** Object with prototype declaration:</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>(score <span class="kw">var</span>: Integer)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="co">** Singleline:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>(«Member_Declaration»<span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="co">** Object with unnamed declaration:</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>(<span class="dv">100</span>)</span></code></pre></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="co">** Multiline:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>    <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>«Member_Declaration»<span class="re">⁽</span><span class="an">list⤸linelist</span><span class="re">⁾</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb7" data-caption="Example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co">** Empty object</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="co">** Singleline</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>(x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="co">** Multiline</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>    x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    z<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>)</span></code></pre></div>
+<h3 id="member-declaration">Member declaration</h3>
+<div class="sourceCode" id="cb8" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co">** Complete declaration:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>«Value_Specification» «Initialization»</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="co">** Prototype declaration:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>«Value_Specification»</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="co">** Unnamed declaration: </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>«Expression»</span></code></pre></div>
+<div class="sourceCode" id="cb9" data-caption="Example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="co">** Object with complete declaration:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>(score <span class="kw">var</span>: Integer <span class="op">=</span> <span class="dv">100</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="co">** Object with prototype declaration:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>(score <span class="kw">var</span>: Integer)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="co">** Object with unnamed declaration:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>(<span class="dv">100</span>)</span></code></pre></div>
 <h3 id="value-specification">Value specification</h3>
 <p>The value specification consists of its name (if it’s a named value), its ownership qualifier (unless default), and its constraint separated by a colon (optional if it can be inferred from its initialization).</p>
-<div class="sourceCode" id="cb7" data-caption="Structure"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39;-optional</span><span class="re">⁾</span> «Ownership»<span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span> «Constraint»<span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
-<div class="sourceCode" id="cb8" data-caption="Example"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
+<div class="sourceCode" id="cb10" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39;-optional</span><span class="re">⁾</span> «Ownership»<span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span> «Constraint»<span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb11" data-caption="Example"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
 <p>The ownership is specified one of the following qualifiers:</p>
 <table>
 <thead>
@@ -136,7 +183,7 @@
 <p>The default ownership is <em>constant</em> if prototype or initialized using a definition (<code class="sourceCode oura"><span class="kw">def</span></code> symbol). If initialized using an assignment (<code class="sourceCode oura"><span class="op">=</span></code> symbol), it is <em>variable</em> instead.</p>
 <p>If the value isn’t named, the ownership qualifier is mandatory.</p>
 <h3 id="constraint">Constraint</h3>
-<div class="sourceCode" id="cb9" data-caption="Structure"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>: «Constraint_Qualifier»<span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span> «Expression»<span class="re">⁽</span><span class="an">&#39;required trait&#39;-optional</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb12" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>: «Constraint_Qualifier»<span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span> «Expression»<span class="re">⁽</span><span class="an">&#39;required trait&#39;-optional</span><span class="re">⁾</span></span></code></pre></div>
 <p>The constraint qualifiers can be put in the following groups:</p>
 <table>
 <thead>
