@@ -7,11 +7,25 @@ Code examples are used to better convey language concepts we introduced. Notes a
 ** This is a 'Hello world!' example
 
 ** We need to write to console
-using write with Console module Std
+using write with Console module Io Std
 
 ** The main program
 main def() => {
     write! "Hello world!"
+}
+```
+
+Most examples don't mention the so-called 'modules' or the 'main function'.
+Unless they mention those things,
+it is assumed the necessary 'modules' are used and the example code snippet is placed in the 'main function'.
+If you want to run them yourself, place them inside this code template:
+
+```{.oura caption="The Oura docs example code template"}
+using module Io Std
+using (read, write) with Console Io
+
+main def() => vol {
+    ** Insert example code snippet here
 }
 ```
 

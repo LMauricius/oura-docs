@@ -42,12 +42,19 @@
 <div class="sourceCode" id="cb1" data-caption="A Hello world example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">** This is a &#39;Hello world!&#39; example</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">** We need to write to console</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">using</span> write <span class="cf">with</span> Console <span class="kw">module</span> Std</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">using</span> write <span class="cf">with</span> Console <span class="kw">module</span> Io Std</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">** The main program</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>main <span class="kw">def</span>() <span class="op">=&gt;</span> {</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    write<span class="op">!</span> <span class="st">&quot;Hello world!&quot;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Most examples don’t mention the so-called ‘modules’ or the ‘main function’. Unless they mention those things, it is assumed the necessary ‘modules’ are used and the example code snippet is placed in the ‘main function’. If you want to run them yourself, place them inside this code template:</p>
+<div class="sourceCode" id="cb2" data-caption="The Oura docs example code template"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">module</span> Io Std</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">using</span> (read, write) <span class="cf">with</span> Console Io</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>main <span class="kw">def</span>() <span class="op">=&gt;</span> <span class="kw">vol</span> {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="co">** Insert example code snippet here</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="syntax-definitions">Syntax definitions</h2>
 <p>In these docs, the language syntax is defined in code blocks. Sometimes, syntactic structures are not mandatory or can repeat, in which cases we use one of the following meta-markers:</p>
 <ul>
