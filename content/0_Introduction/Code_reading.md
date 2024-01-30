@@ -7,11 +7,11 @@ Code examples are used to better convey language concepts we introduced. Notes a
 ** This is a 'Hello world!' example
 
 ** We need to write to console
-use write with Console (module Std)
+using write with Console module Std
 
 ** The main program
 main def() => {
-    write "Hello world!"
+    write! "Hello world!"
 }
 ```
 
@@ -24,7 +24,7 @@ Sometimes, syntactic structures are not mandatory or can repeat, in which cases 
 - `⁽list⁾`{.ouraspec} - The structure is repeating, but each entry is separated by a comma, possibly followed by whitespace. All in a single line.
 - `⁽linelist⁾`{.ouraspec} - The structure is repeating, but each entry is in its own line. Empty/whitespace lines are allowed inbetween for readability.
 
-The parts of code are also often surrounded by meta-parentheses like this: `⁽(⁾code⁽)⁾`{.ouraspec}. This is used to note that the meta-markers apply to a longer part of code, like this: `some code ⁽(⁾some marked code⁽)optional⁾ some more code`{.ouraspec}
+The parts of code are also often surrounded by meta-parentheses like this: `⁽⤹⁾code⁽⤸⁾`{.ouraspec}. They look like parentheses with arrows pointing down to the code. This is used to note that the meta-markers apply to a longer part of code, like this: `some code ⁽⤹⁾some marked code⁽⤸optional⁾ some more code`{.ouraspec}
 
 ## Bracket types and names
 We use the following kinds of brackets:
