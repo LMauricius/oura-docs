@@ -43,7 +43,16 @@
 <h2 id="usage">Usage</h2>
 <p>The objects are only useful when they contain some <strong>values</strong>. The objects can be seen as ‘wrappers’ or ‘groups’ for related values, and often correspond to real-life items, concepts, and structures. The values contained in an object are called its <em>members</em>.</p>
 <h3 id="values">Values</h3>
-<p>Values consist of: - <strong>Name</strong> (optional): the name we use to identify a value. Objects can also have a number of unnamed values. Such objects are called <strong>tuples</strong>. - <strong>Content</strong>: can be anything from numbers and text to more complex structures. It is an object that the value holds. - <strong>Constraint</strong>: a set of requirements that the content of the value always satisfies. It is a combination of: - <strong>Required trait</strong>: an object that the content always has traits of. For example, <code class="sourceCode oura">Integer</code>, <code class="sourceCode oura">Real</code> or <code class="sourceCode oura">String</code>. More about this on the trait system pages. - <strong>Handle modes</strong>: properties that describe what you an do with the value</p>
+<p>Values consist of:</p>
+<ul>
+<li><strong>Name</strong> (optional): the name we use to identify a value. Objects can also have a number of unnamed values. Such objects are called <strong>tuples</strong>.</li>
+<li><strong>Content</strong>: can be anything from numbers and text to more complex structures. It is an object that the value holds.</li>
+<li><strong>Constraint</strong>: a set of requirements that the content of the value always satisfies. It is a combination of:
+<ul>
+<li><strong>Required trait</strong>: an object that the content always has traits of. For example, <code class="sourceCode oura">Integer</code>, <code class="sourceCode oura">Real</code> or <code class="sourceCode oura">String</code>. More about this on the trait system pages.</li>
+<li><strong>Handle modes</strong>: properties that describe what you an do with the value</li>
+</ul></li>
+</ul>
 <p>When we set a value’s content to an object, we say it has been <strong>assigned</strong> the object. If we change the content to another object, that is a <strong>reassignment</strong>. A special kind of assignment that cannot be <strong>reassigned</strong> is called a <strong>definition</strong>. The first assignment that is done as soon as we declare a value is called <strong>initialization</strong>. A value that has been declared and has constraints specified but is not initialized is called a <strong>prototype</strong> value.</p>
 <div class="sourceCode" id="cb1" data-caption="A named value"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>

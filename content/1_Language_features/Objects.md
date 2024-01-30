@@ -18,6 +18,7 @@ The values contained in an object are called its *members*.
 ### Values
 
 Values consist of:
+
 - **Name** (optional): the name we use to identify a value. Objects can also have a number of unnamed values. Such objects are called **tuples**. 
 - **Content**: can be anything from numbers and text to more complex structures. It is an object that the value holds.
 - **Constraint**: a set of requirements that the content of the value always satisfies. It is a combination of:
