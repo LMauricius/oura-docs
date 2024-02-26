@@ -50,7 +50,7 @@
 <li><strong>Constraint</strong>: a set of requirements that the content of the value always satisfies. It is a combination of:
 <ul>
 <li><strong>Required trait</strong>: an object that the content always has traits of. For example, <code class="sourceCode oura">Integer</code>, <code class="sourceCode oura">Real</code> or <code class="sourceCode oura">String</code>. More about this on the trait system pages.</li>
-<li><strong>Handle modes</strong>: properties that describe what you an do with the value</li>
+<li><strong>Handle modes</strong>: properties that describe what you can do with the value</li>
 </ul></li>
 </ul>
 <p>When we set a value’s content to an object, we say it has been <strong>assigned</strong> the object. If we change the content to another object, that is a <strong>reassignment</strong>. A special kind of assignment that cannot be <strong>reassigned</strong> is called a <strong>definition</strong>. The first assignment that is done as soon as we declare a value is called <strong>initialization</strong>. A value that has been declared and has constraints specified but is not initialized is called a <strong>prototype</strong> value.</p>
@@ -84,7 +84,7 @@
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>c <span class="op">=</span> <span class="st">&quot;Six&quot;</span> <span class="co">**Error</span></span></code></pre></div>
 <h3 id="member-values">Member values</h3>
 <p>Values that are contained in an object are called <strong>members</strong> of that object. That object is called a <strong>master</strong> of its members.</p>
-<p>Declaring a member value also defines a <strong>getter function</strong> value in the master’s surrounding context. The getter function is assigned to a value of the same name as the member value. Calling the getter function with the master as its argument returns the value of the member. So if we have a local value <code>player</code> whose content (object) has a member <code>score</code>, we can handle the score value as <code class="sourceCode oura">score player</code>. That should be read as “<em>the</em> score <em>of</em> player”. In this case the <code>score</code> is a member of the <code>player</code>s content, but outside of it <code>score</code> is a getter function value.</p>
+<p>Declaring a member value also defines a <strong>getter function</strong> value in the master’s surrounding context. The getter function is assigned to a value of the same name as the member value. Calling the getter function with the master as its argument returns the member value. So if we have a local value <code>player</code> whose content (object) has a member <code>score</code>, we can handle the score value as <code class="sourceCode oura">score player</code>. That should be read as “<em>the</em> score <em>of</em> player”. In this case the <code>score</code> is a member of the <code>player</code>s content, but outside of it <code>score</code> is a getter function value.</p>
 <div class="sourceCode" id="cb4" data-caption="Numbers and other objects"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>pointA <span class="kw">def</span> (x <span class="op">=</span> <span class="fl">1.5</span>, y <span class="op">=</span> <span class="fl">2.4</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>pointB <span class="kw">def</span> (x <span class="op">=</span> <span class="fl">4.8</span>, y <span class="op">=</span> <span class="fl">6.2</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>myRectangle <span class="kw">def</span> (</span>
@@ -102,7 +102,7 @@
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>write<span class="op">!</span> y topLeftCorner myRectangle</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="co">** The above line prints 2.4</span></span></code></pre></div>
-<p>All values are members of <em>something</em>, except for the <strong>context</strong> values. It is only important for now to know that there is a <strong>local context</strong> at every place of the code, whose members (a.k.a. the <strong>local values</strong>) can be handled by their name alone. The local context can be handled with the <code class="sourceCode oura">local</code> keyword.</p>
+<p>All values are members of <em>something</em>, except for the <strong>context</strong> values. It is only important for now to know that there is a <strong>local context</strong> at every place of the code, whose members (a.k.a. the <strong>local values</strong>) can be handled by their name alone. The local context can be handled with the <code class="sourceCode oura"><span class="kw">local</span></code> keyword.</p>
 <div class="sourceCode" id="cb5" data-caption="Local values"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">module</span> Io Std</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">using</span> write <span class="cf">with</span> Console Io</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
@@ -114,9 +114,30 @@
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>    write<span class="op">!</span> foo <span class="co">** foo is handled just by its name &#39;foo&#39;</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>               <span class="co">** prints &#39;100&#39;</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    write<span class="op">!</span> foo local <span class="co">** same as above, &#39;local&#39; keyword handles the local context</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    write<span class="op">!</span> foo <span class="kw">local</span> <span class="co">** same as above, &#39;local&#39; keyword handles the local context</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>                     <span class="co">** prints &#39;100&#39;</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>}</span></code></pre></div>
+<h3 id="handle-modes">Handle modes</h3>
+<p>The handle modes can be optionally specified during value declaration. Most have fixed defaults if unspecified. These are the handle modes’ categories:</p>
+<ul>
+<li><strong>Ownership</strong> - controls whether the value owns its content and whether it can be reassigned. More on the ownership and lifetime pages.
+<ul>
+<li><strong>Constant</strong> - a value that owns its content and cannot be reassigned. The ownership <em>might</em> be shared with other constants. <em>Default</em> unless the value is initialized using the reassignment symbol.</li>
+<li><strong>Variable</strong> - a value that uniquely owns its content and can be reassigned. <em>Default</em> if initialized using the reassignment symbol.</li>
+<li><strong>Reference</strong> - a value that doesn’t own its content and cannot be reassigned</li>
+<li><strong>Pointer</strong> - a value that doesn’t own its content and can be reassigned</li>
+</ul></li>
+<li><strong>Mutability</strong> - controls whether the value’s content can be modified by handling the value
+<ul>
+<li><strong>Immutable</strong> - the content’s members cannot be ressigned or modified, even if otherwise allowed by their own handle modes. <em>Default</em></li>
+<li><strong>Mutable</strong> - the content’s members can be reassigned and/or modified, unless prevented by their own handle modes</li>
+</ul></li>
+<li><strong>Volatility</strong> - controls whether the value’s content can change unexpectedly while we are not handling it
+<ul>
+<li><strong>Persistent</strong> - the value’s content cannot change, except by explicitly modifying it while handling the value. <em>Default</em></li>
+<li><strong>Volatile</strong> - the content might change inbetween times we handle it, even if we aren’t explicitly modifying it. Examples would be modifying the content from a different process/thread, changes in data from external devices, or any changes not covered by Oura’s memory model. The content still satisfies the value’s constraint, and can only be handled according to Oura’s memory model.</li>
+</ul></li>
+</ul>
 <h2 id="syntax">Syntax</h2>
 <h3 id="object-literal">Object literal</h3>
 <p>The object literals are written as a series of member declarations surrounded by parens (<code>(</code> and <code>)</code>).</p>

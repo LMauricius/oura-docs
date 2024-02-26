@@ -25,7 +25,7 @@ Values consist of:
     - **Required trait**: an object that the content always has traits of.
         For example, `Integer`{.oura}, `Real`{.oura} or `String`{.oura}.
         More about this on the trait system pages.
-    - **Handle modes**: properties that describe what you an do with the value
+    - **Handle modes**: properties that describe what you can do with the value
 
 When we set a value's content to an object, we say it has been **assigned** the object.
 If we change the content to another object, that is a **reassignment**.
@@ -79,7 +79,7 @@ That object is called a **master** of its members.
 
 Declaring a member value also defines a **getter function** value in the master's surrounding context.
 The getter function is assigned to a value of the same name as the member value.
-Calling the getter function with the master as its argument returns the value of the member.
+Calling the getter function with the master as its argument returns the member value.
 So if we have a local value `player` whose content (object) has a member `score`, 
 we can handle the score value as `score player`{.oura}.
 That should be read as "*the* score *of* player".
@@ -127,6 +127,30 @@ main def() => {
                      ** prints '100'
 }
 ```
+
+### Handle modes
+
+The handle modes can be optionally specified during value declaration.
+Most have fixed defaults if unspecified. 
+These are the handle modes' categories:
+
+- **Ownership** - controls whether the value owns its content and whether it can be reassigned. More on the ownership and lifetime pages.
+    - **Constant** - a value that owns its content and cannot be reassigned.
+        The ownership *might* be shared with other constants.
+        *Default* unless the value is initialized using the reassignment symbol.
+    - **Variable** - a value that uniquely owns its content and can be reassigned.
+        *Default* if initialized using the reassignment symbol.
+    - **Reference** - a value that doesn't own its content and cannot be reassigned
+    - **Pointer** - a value that doesn't own its content and can be reassigned
+- **Mutability** - controls whether the value's content can be modified by handling the value
+    - **Immutable** - the content's members cannot be ressigned or modified, even if otherwise allowed by their own handle modes. *Default*
+    - **Mutable** - the content's members can be reassigned and/or modified, unless prevented by their own handle modes
+- **Volatility** - controls whether the value's content can change unexpectedly while we are not handling it
+    - **Persistent** - the value's content cannot change, except by explicitly modifying it while handling the value. *Default*
+    - **Volatile** - the content might change inbetween times we handle it, even if we aren't explicitly modifying it.
+        Examples would be modifying the content from a different process/thread,
+        changes in data from external devices, or any changes not covered by Oura's memory model.
+        The content still satisfies the value's constraint, and can only be handled according to Oura's memory model.
 
 ## Syntax
 

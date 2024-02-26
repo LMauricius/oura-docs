@@ -72,6 +72,7 @@
 		</list>
 		<list name="specialvars">
 			<item>context</item>
+			<item>local</item>
 			<item>Nil</item>
 			<item>True</item>
 			<item>False</item>
@@ -560,7 +561,7 @@
 			<itemData name="Declaration Specifier" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Flow Control Keyword" defStyleNum="dsControlFlow" spellChecking="false"/>
 			<itemData name="Builtin Function" defStyleNum="dsBuiltIn" spellChecking="false"/>
-			<itemData name="Special Variable" defStyleNum="dsVariable" spellChecking="false"/>
+			<itemData name="Special Variable" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Extensions" defStyleNum="dsExtension" spellChecking="false"/>
 			<itemData name="Exceptions" defStyleNum="dsPreprocessor" spellChecking="false"/>
 			<itemData name="Overloaders" defStyleNum="dsFunction" spellChecking="false"/>
