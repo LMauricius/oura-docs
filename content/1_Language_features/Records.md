@@ -1,34 +1,34 @@
-# Objects
+# Records
 
 ## Description
 
-Objects are the most fundamental entities of Oura language.
+Records are the most fundamental entities of Oura language.
 They are used to contain data we need, bind related values,
 perform various mathematical and procedural operations and actions on data.
 
-In Oura, data, functions and modules are all objects. 
+In Oura, data, functions and modules are all records. 
 
 ## Usage
 
-The objects are only useful when they contain some  **values**.
-The objects can be seen as 'wrappers' or 'groups' for related values,
+The records are only useful when they contain some  **values**.
+The records can be seen as 'wrappers' or 'groups' for related values,
 and often correspond to real-life items, concepts, and structures.
-The values contained in an object are called its *members*.
+The values contained in an record are called its *members*.
 
 ### Values
 
 Values consist of:
 
-- **Name** (optional): the name we use to identify a value. Objects can also have a number of unnamed values. Such objects are called **tuples**. 
-- **Content**: can be anything from numbers and text to more complex structures. It is an object that the value holds.
+- **Name** (optional): the name we use to identify a value. Records can also have a number of unnamed values. Such records are called **tuples**. 
+- **Content**: can be anything from numbers and text to more complex structures. It is an record that the value holds.
 - **Constraint**: a set of requirements that the content of the value always satisfies. It is a combination of:
-    - **Required trait**: an object that the content always has traits of.
+    - **Required trait**: an record that the content always has traits of.
         For example, `Integer`{.oura}, `Real`{.oura} or `String`{.oura}.
         More about this on the trait system pages.
     - **Handle modes**: properties that describe what you can do with the value
 
-When we set a value's content to an object, we say it has been **assigned** the object.
-If we change the content to another object, that is a **reassignment**.
+When we set a value's content to an record, we say it has been **assigned** the record.
+If we change the content to another record, that is a **reassignment**.
 A special kind of assignment that cannot be **reassigned** is called a **definition**.
 The first assignment that is done as soon as we declare a value is called **initialization**.
 A value that has been declared and has constraints specified but is not initialized is called a **prototype** value. 
@@ -74,19 +74,19 @@ c = "Six" **Error
 
 ### Member values
 
-Values that are contained in an object are called **members** of that object.
-That object is called a **master** of its members.
+Values that are contained in an record are called **members** of that record.
+That record is called a **master** of its members.
 
 Declaring a member value also defines a **getter function** value in the master's surrounding context.
 The getter function is assigned to a value of the same name as the member value.
 Calling the getter function with the master as its argument returns the member value.
-So if we have a local value `player` whose content (object) has a member `score`, 
+So if we have a local value `player` whose content (record) has a member `score`, 
 we can handle the score value as `score player`{.oura}.
 That should be read as "*the* score *of* player".
 In this case the `score` is a member of the `player`s content,
 but outside of it `score` is a getter function value.
 
-```{.oura caption="Numbers and other objects"}
+```{.oura caption="Numbers and other records"}
 pointA def (x = 1.5, y = 2.4)
 pointB def (x = 4.8, y = 6.2)
 myRectangle def (
@@ -95,11 +95,11 @@ myRectangle def (
 )
 
 ** 2.4 is the content of the first 'y'
-** y is a member value of the first point object
-** the first point object is the content of 'pointA'
-** a copy of the first point object is the content of 'topLeftCorner'
-** topLeftCorner is a member of the rectangle object
-** the rectangle object is the content of 'myRectangle' value
+** y is a member value of the first point record
+** the first point record is the content of 'pointA'
+** a copy of the first point record is the content of 'topLeftCorner'
+** topLeftCorner is a member of the rectangle record
+** the rectangle record is the content of 'myRectangle' value
 ** here, x, y, topLeftCorner and bottomRightCorner are all getter functions
 
 write! y topLeftCorner myRectangle
@@ -161,11 +161,11 @@ These are the handle modes' categories:
 
 ## Syntax
 
-### Object literal
-The object literals are written as a series of member declarations surrounded by parens (`(` and `)`).
+### Record literal
+The record literals are written as a series of member declarations surrounded by parens (`(` and `)`).
 
 ```{.ouraspec caption="Syntax" }
-** Empty object:
+** Empty record:
 ()
 
 ** Singleline:
@@ -178,7 +178,7 @@ The object literals are written as a series of member declarations surrounded by
 ```
 
 ```{.oura caption="Example"}
-** Empty object
+** Empty record
 ()
 
 ** Singleline
@@ -205,13 +205,13 @@ The object literals are written as a series of member declarations surrounded by
 ```
 
 ```{.oura caption="Example" }
-** Object with complete declaration:
+** Record with complete declaration:
 (score var: Integer = 100)
 
-** Object with prototype declaration:
+** Record with prototype declaration:
 (score var: Integer)
 
-** Object with unnamed declaration:
+** Record with unnamed declaration:
 (100)
 ```
 
