@@ -137,6 +137,11 @@
 <li><strong>Persistent</strong> - the value’s content cannot change, except by explicitly modifying it while handling the value. <em>Default</em></li>
 <li><strong>Volatile</strong> - the content might change inbetween times we handle it, even if we aren’t explicitly modifying it. Examples would be modifying the content from a different process/thread, changes in data from external devices, or any changes not covered by Oura’s memory model. The content still satisfies the value’s constraint, and can only be handled according to Oura’s memory model.</li>
 </ul></li>
+<li><strong>Scope limits</strong> - whether the ownership can be transfered outside of the current scope
+<ul>
+<li><strong>Non-leaving</strong> - content ownership can only be <em>borrowed</em> by values of shorter lifespans or <em>transferred</em> to values of equal lifespans, except if those values’ content is <em>leaving</em>. <em>Default</em> for member values.</li>
+<li><strong>Leaving</strong> - the ownership can be transferred to values of longer lifespans. <em>Default</em> for function return values.</li>
+</ul></li>
 </ul>
 <h2 id="syntax">Syntax</h2>
 <h3 id="object-literal">Object literal</h3>

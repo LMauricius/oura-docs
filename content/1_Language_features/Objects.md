@@ -151,6 +151,13 @@ These are the handle modes' categories:
         Examples would be modifying the content from a different process/thread,
         changes in data from external devices, or any changes not covered by Oura's memory model.
         The content still satisfies the value's constraint, and can only be handled according to Oura's memory model.
+- **Scope limits** - whether the ownership can be transfered outside of the current scope
+    - **Non-leaving** - content ownership can only be *borrowed* by values of shorter lifespans 
+        or *transferred* to values of equal lifespans,
+        except if those values' content is *leaving*.
+        *Default* for member values.
+    - **Leaving** - the ownership can be transferred to values of longer lifespans.
+        *Default* for function return values.
 
 ## Syntax
 
