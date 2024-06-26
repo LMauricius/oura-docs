@@ -1,16 +1,18 @@
 # Code reading
 
 ## Examples
-Code examples are used to better convey language concepts we introduced. Notes are put in comments started with a double star (`code ** comment`{.oura}), which are meant for humans and ignored by the compiler.
+Code examples are used to better convey language concepts we introduced.
+Notes are put in comments started with a double star (`code ** comment`{.oura}),
+which are meant for humans and ignored by the compiler.
 
 ```{.oura caption="A Hello world example"}
 ** This is a 'Hello world!' example
 
 ** We need to write to console
-using write with Console module Io Std
+use write with Console module Io Std
 
 ** The main program
-main def() => {
+main = ProgramArgs mut => {
     write! "Hello world!"
 }
 ```
@@ -21,10 +23,10 @@ it is assumed the necessary 'modules' are used and the example code snippet is p
 If you want to run them yourself, place them inside this code template:
 
 ```{.oura caption="The Oura docs example code template"}
-using module Io Std
-using (read, write) with Console Io
+use module Io Std
+use (read, write) with Console Io
 
-main def() => vol {
+main = ProgramArgs mut vol => {
     ** Insert example code snippet here
 }
 ```

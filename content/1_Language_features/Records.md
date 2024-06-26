@@ -2,46 +2,54 @@
 
 ## Description
 
-Records are the most fundamental entities of Oura language.
-They are used to contain data we need, bind related values,
-perform various mathematical and procedural operations and actions on data.
+Records are the building blocks of Oura programming.
+They are used to contain data we need, group related values,
+or to extend mathematical and procedural functionalities of the language.
 
-In Oura, data, functions and modules are all records. 
+In Oura, data, functions and modules are all described by records. 
 
 ## Usage
 
-The records are only useful when they contain some  **values**.
-The records can be seen as 'wrappers' or 'groups' for related values,
+The records are only useful when they have some  **values**, and they themselves are contained in values.
+They are best viewed as 'wrappers' or 'groups' for related values,
 and often correspond to real-life items, concepts, and structures.
-The values contained in an record are called its *members*.
+The values grouped by a record are called its *members*.
 
 ### Values
 
-Values consist of:
+Values are holders of records.
 
-- **Name** (optional): the name we use to identify a value. Records can also have a number of unnamed values. Such records are called **tuples**. 
-- **Content**: can be anything from numbers and text to more complex structures. It is an record that the value holds.
+They consist of:
+
+- **Name** (optional): the name we use to identify a value. Records can also have a number of unnamed member values.
+- **Value modes**: properties that describe what you can do with the value itself
+- **Content**: a record that the value holds. Can be anything from numbers and text to more complex structures.
 - **Constraint**: a set of requirements that the content of the value always satisfies. It is a combination of:
     - **Required trait**: an record that the content always has traits of.
         For example, `Integer`{.oura}, `Real`{.oura} or `String`{.oura}.
         More about this on the trait system pages.
-    - **Handle modes**: properties that describe what you can do with the value
+    - **Content modes**: properties that describe what you can do with the content
 
-When we set a value's content to an record, we say it has been **assigned** the record.
-If we change the content to another record, that is a **reassignment**.
-A special kind of assignment that cannot be **reassigned** is called a **definition**.
-The first assignment that is done as soon as we declare a value is called **initialization**.
-A value that has been declared and has constraints specified but is not initialized is called a **prototype** value. 
+Here are a few key terms used in relation to values:
+
+- **Assignment**: setting a values's content to a record
+- **Reassignment**: changing existing content to another record
+- **Initialization**: the first assignment of a value
+- **Definition**: initialization of a value that cannot be later reassigned
+- **Empty** value: value that has been declared and has constraints specified but is not initialized
+- **Function** value: a value whose content is a *functor* record
+    and that can be called with an argument to retrieve new values.
+    More on that on its own pages.
 
 ```{.oura caption="A named value"}
-score var: Integer = 100
+score var: Integer <- 100
 
 ** the *name* of the value is 'score'
 ** the *content* of the value is number 100
 ** the *required trait* of the value is 'Integer' (a number without a fraction)
-** it has a non-default handle mode of a 'variable', meaning we can reassign it
+** it has a non-default ownership mode of a 'variable', meaning we can reassign it
 
-score = 200
+score <- 200
 
 write! score
 ** The above line prints '200' to screen
@@ -51,45 +59,35 @@ No matter which data is assigned to the value, it never violates the constraint.
 The constraint can be explicitly specified, or inferred from the value initialization.
 
 ```{.oura caption="Constraint violation"}
-a: Number = 1
-a = 5 **This is OK
+a var: Number <- 1
+a <- 5 **This is OK
 
-b: String = "Monday"
-b = "Tuesday" **Also OK
+b var: String <- "Monday"
+b <- "Tuesday" **Also OK
 
-c: Number = 2
-c = "Six" **Error: Can't assign a String to a Number value c
-```
-
-```{.oura caption="Constraint violation (with trait inferrence)"}
-a = 1
-a = 5 **OK
-
-b = "Monday"
-b = "Tuesday" **OK
-
-c = 2
-c = "Six" **Error
+c var: Number <- 2
+c <- "Six" **Error: Can't assign a String to a Number value c
 ```
 
 ### Member values
 
-Values that are contained in an record are called **members** of that record.
-That record is called a **master** of its members.
+A record is called a **group** of its members.
 
-Declaring a member value also defines a **getter function** value in the master's surrounding context.
-The getter function is assigned to a value of the same name as the member value.
-Calling the getter function with the master as its argument returns the member value.
-So if we have a local value `player` whose content (record) has a member `score`, 
-we can handle the score value as `score player`{.oura}.
+Declaring a member value also defines a **getter function** globally.
+The getter function has the same name as the member value.
+It accepts a single argument which the group holding this member satisfies,
+and returns a reference value to the member's content when called. 
+
+So if we have a local value `player` whose content has a member `score`, 
+we can access the score's record as `score player`{.oura}.
 That should be read as "*the* score *of* player".
-In this case the `score` is a member of the `player`s content,
+In this case the `score` value is a member of the `player`s content record,
 but outside of it `score` is a getter function value.
 
-```{.oura caption="Numbers and other records"}
-pointA def (x = 1.5, y = 2.4)
-pointB def (x = 4.8, y = 6.2)
-myRectangle def (
+```{.oura caption="Member values and getters"}
+pointA = (x = 1.5, y = 2.4)
+pointB = (x = 4.8, y = 6.2)
+myRectangle = (
     topLeftCorner = pointA
     bottomRightCorner = pointB
 )
@@ -108,49 +106,53 @@ write! y topLeftCorner myRectangle
 
 All values are members of *something*, except for the **context** values.
 It is only important for now to know that there is a **local context** at every place of the code,
-whose members (a.k.a. the **local values**) can be handled by their name alone.
-The local context can be handled with the `local`{.oura} keyword.
+whose members (a.k.a. the **local values**) can be accessed by their name alone.
+The local context can be accessed with the `local`{.oura} keyword.
 
 ```{.oura caption="Local values"}
-using module Io Std
-using write with Console Io
+use module Io Std
+use write with Console Io
 
-main def() => {
+main = ProgramArgs mut vol => {
     foo = 100
 
     ** 'foo' is a local value
 
-    write! foo ** foo is handled just by its name 'foo'
+    write! foo ** foo is accessed just by its name 'foo'
                ** prints '100'
 
-    write! foo local ** same as above, 'local' keyword handles the local context
+    write! foo local ** same as above, 'local' keyword accesses the local context
                      ** prints '100'
 }
 ```
 
-### Handle modes
+### Value modes
 
-The handle modes can be optionally specified during value declaration.
-Most have fixed defaults if unspecified. 
-These are the handle modes' categories:
+The value modes can be optionally specified during value declaration.
+They have defaults if unspecified. 
+These are the content modes' categories:
 
 - **Ownership** - controls whether the value owns its content and whether it can be reassigned. More on the ownership and lifetime pages.
     - **Constant** - a value that owns its content and cannot be reassigned.
-        The ownership *might* be shared with other constants.
-        *Default* unless the value is initialized using the reassignment symbol.
+        The ownership *might* be shared with other constants, but it's unspecified whether two constants own the same record. *Default*
     - **Variable** - a value that uniquely owns its content and can be reassigned.
-        *Default* if initialized using the reassignment symbol.
     - **Reference** - a value that doesn't own its content and cannot be reassigned
     - **Pointer** - a value that doesn't own its content and can be reassigned
-- **Mutability** - controls whether the value's content can be modified by handling the value
-    - **Immutable** - the content's members cannot be ressigned or modified, even if otherwise allowed by their own handle modes. *Default*
-    - **Mutable** - the content's members can be reassigned and/or modified, unless prevented by their own handle modes
-- **Volatility** - controls whether the value's content can change unexpectedly while we are not handling it
-    - **Persistent** - the value's content cannot change, except by explicitly modifying it while handling the value. *Default*
-    - **Volatile** - the content might change inbetween times we handle it, even if we aren't explicitly modifying it.
+
+### Content modes
+
+The content modes can also be optionally specified during value declaration and they also have defaults if unspecified. 
+These are the content modes' categories:
+
+- **Mutability** - controls whether the value's content can be modified by accessing the value
+    - **Uniform** - the content's members cannot be ressigned or modified, even if otherwise allowed by their own modes. *Default*
+    - **Mutable** - the content's members can be reassigned and/or modified, unless prevented by their own modes
+- **Stability** - controls whether the value's content can change on its own while we are not accessing it in the local context
+    - **Firm** - the value's content cannot change, except by explicitly modifying it locally. *Default*
+    - **Volatile** - the content might change inbetween times we access it, even if we aren't locally modifying it.
         Examples would be modifying the content from a different process/thread,
         changes in data from external devices, or any changes not covered by Oura's memory model.
-        The content still satisfies the value's constraint, and can only be handled according to Oura's memory model.
+        The content still satisfies the value's constraint, and can only be accessed according to Oura's memory model.
 - **Scope limits** - whether the ownership can be transfered outside of the current scope
     - **Non-leaving** - content ownership can only be *borrowed* by values of shorter lifespans 
         or *transferred* to values of equal lifespans,
@@ -194,10 +196,13 @@ The record literals are written as a series of member declarations surrounded by
 ### Member declaration
 
 ```{.ouraspec caption="Syntax" }
-** Complete declaration:
-«Value_Specification» «Initialization»
+** Complete definition:
+«Value_Specification» = «Expression»
 
-** Prototype declaration:
+** Complete non-constant initialization:
+«Value_Specification» <- «Expression»
+
+** Empty declaration:
 «Value_Specification»
 
 ** Unnamed declaration: 
@@ -205,23 +210,23 @@ The record literals are written as a series of member declarations surrounded by
 ```
 
 ```{.oura caption="Example" }
-** Record with complete declaration:
-(score var: Integer = 100)
+** Record with initialization:
+(score var: Integer <- 100)
 
-** Record with prototype declaration:
+** Record with empty declaration:
 (score var: Integer)
 
-** Record with unnamed declaration:
+** Record with unnamed value initialization:
 (100)
 ```
 
 ### Value specification
 
-The value specification consists of its name (if it's a named value), its ownership qualifier (unless default),
+The value specification consists of its name (if it's a named value), its value modes (unless default),
 and its constraint separated by a colon (optional if it can be inferred from its initialization).
 
 ```{.ouraspec caption="Syntax" }
-«Identifier»⁽'name'-optional⁾ «Ownership»⁽optional⁾ «Constraint»⁽optional⁾
+«Identifier»⁽'name' optional⁾ «Value_Mode»⁽multiple⁾ ⤹: «Constraint»⤸⁽optional⁾
 ```
 
 ```{.ouraspec caption="Example" }
@@ -237,21 +242,18 @@ The ownership is specified one of the following qualifiers:
 | `ref`{.oura}   | A reference |
 | `ptr`{.oura}   | A pointer   |
 
-The default ownership is *constant* if prototype or initialized using a definition (`def`{.oura} symbol).
-If initialized using an assignment (`=`{.oura} symbol), it is *variable* instead.
-
-If the value isn't named, the ownership qualifier is mandatory.
+If the value isn't named, a value mode qualifier is mandatory.
 
 ### Constraint
 
 ```{.ouraspec caption="Syntax" }
-: «Constraint_Qualifier»⁽more⁾ «Expression»⁽'required trait'-optional⁾
+«Constraint_Qualifier»⁽more⁾ «Expression»⁽'required trait'-optional⁾
 ```
 
 The constraint qualifiers can be put in the following groups:
 
-| Qualifier group | Keywords                 | Default |
-| --------------- | ------------------------ | ------- |
-| Mutability      | `mut, unif`{.oura}       | uniform |
-| Stability       | `vol, firm`{.oura}       | firm    |
-| Evaluation      | `static, dynamic`{.oura} | dynamic |
+| Qualifier group | Keywords                    | Default     |
+| --------------- | --------------------------- | -------     |
+| Mutability      | `unif`{.oura}, `mut`{.oura} | uniform     |
+| Stability       | `firm`{.oura}, `vol`{.oura} | firm        |
+| Scope           | /, `leav`{.oura}            | non-leaving |
