@@ -19,8 +19,7 @@
 		<list name="import">
 		</list>
 		<list name="defs">
-			<item>def</item>
-			<item>using</item>
+			<item>use</item>
 			<item>module</item>
 			<item>api</item>
 		</list>
