@@ -1,0 +1,179 @@
+
+<!doctype html>
+<html>
+    <head>
+        <title>fields</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="syntax_style.css">
+        <link rel="stylesheet" href="syntax_style_override.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="tableofcontents">
+                    <p class="tableofcontents_title">Contents</p>
+                            <li><a href="introduction.html">1&nbspIntroduction</a>
+        <ul>
+            <li><a href="language_goals.html">1&nbspLanguage goals</a>
+            </li>
+            <li><a href="code_reading.html">2&nbspCode reading</a>
+            </li>
+            <li><a href="file_format.html">3&nbspFile format</a>
+            </li>
+            <li><a href="module_system.html">4&nbspModule system</a>
+            </li>
+        </ul>
+        </li>
+        <li>2&nbspLanguage features
+        <ul>
+            <li><b>1 Fields</b>
+            </li>
+            <li><a href="records.html">2&nbspRecords</a>
+            </li>
+        </ul>
+        </li>
+
+                </div>
+            </div>
+            <div class="main">
+                <div class="pagecontent">
+                    <h1 id="fields">Fields</h1>
+<p>Fields are used to handle data in a manageable way.</p>
+<p>They have the following properties:</p>
+<ul>
+<li><strong>Name</strong> (optional): the name we use to identify a field. Unnamed fields can also be used within records.</li>
+<li><strong>Qualities</strong>: properties that describe what you can do with the field itself</li>
+<li><strong>Content</strong>: a record that the field holds. Can be anything from numbers and text to more complex structures.</li>
+<li><strong>Constraint</strong>: a set of requirements that the content of the field always satisfies. It is a combination of:
+<ul>
+<li><strong>Trait</strong>: an record that the content always has traits of. For example, <code class="sourceCode oura">Integer</code>, <code class="sourceCode oura">Real</code> or <code class="sourceCode oura">String</code>. More about this on the trait system pages.</li>
+<li><strong>Content modes</strong>: properties that describe what you can do with the content</li>
+</ul></li>
+</ul>
+<p>Here are a few key terms used in relation to fields:</p>
+<ul>
+<li><strong>Assignment</strong>: setting a fields’s content to a record</li>
+<li><strong>Reassignment</strong>: changing existing content to another record</li>
+<li><strong>Initialization</strong>: the first assignment of a field</li>
+<li><strong>Definition</strong>: initialization of a field that cannot be later reassigned</li>
+<li><strong>Empty</strong> field: field that has been declared and has constraints specified but is not initialized</li>
+<li><strong>Function</strong> field: a field whose content is a <em>functor</em> record and that can be called with an argument to retrieve new fields. More on that on its own pages.</li>
+</ul>
+<div class="sourceCode" id="cb1" data-caption="A named field"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer <span class="op">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">** the *name* of the field is &#39;score&#39;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co">** the *content* of the field is number 100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="co">** the *required trait* of the field is &#39;Integer&#39; (a number without a fraction)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">** it has a non-default ownership mode of a &#39;variable&#39;, meaning we can reassign it</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>score <span class="op">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>write<span class="op">!</span> score</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co">** The above line prints &#39;200&#39; to screen</span></span></code></pre></div>
+<p>No matter which data is assigned to the field, it never violates the constraint. The constraint can be explicitly specified, or inferred from the field initialization.</p>
+<div class="sourceCode" id="cb2" data-caption="Constraint violation"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>a <span class="kw">var</span>: Number <span class="op">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>a <span class="op">&lt;-</span> <span class="dv">5</span> <span class="co">**This is OK</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>b <span class="kw">var</span>: String <span class="op">&lt;-</span> <span class="st">&quot;Monday&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>b <span class="op">&lt;-</span> <span class="st">&quot;Tuesday&quot;</span> <span class="co">**Also OK</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>c <span class="kw">var</span>: Number <span class="op">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>c <span class="op">&lt;-</span> <span class="st">&quot;Six&quot;</span> <span class="co">**Error: Can&#39;t assign a String to a Number field c</span></span></code></pre></div>
+<h3 id="field-modes">Field modes</h3>
+<p>The field modes can be optionally specified during field declaration. They have defaults if unspecified. These are the content modes’ categories:</p>
+<ul>
+<li><strong>Ownership</strong> - controls whether the field owns its content and whether it can be reassigned. More on the ownership and lifetime pages.
+<ul>
+<li><strong>Constant</strong> - a field that owns its content and cannot be reassigned. The ownership <em>might</em> be shared with other constants, but it’s unspecified whether two constants own the same record. <em>Default</em></li>
+<li><strong>Variable</strong> - a field that uniquely owns its content and can be reassigned.</li>
+<li><strong>Reference</strong> - a field that doesn’t own its content and cannot be reassigned</li>
+<li><strong>Pointer</strong> - a field that doesn’t own its content and can be reassigned</li>
+</ul></li>
+</ul>
+<h3 id="content-modes">Content modes</h3>
+<p>The content modes can also be optionally specified during field declaration and they also have defaults if unspecified. These are the content modes’ categories:</p>
+<ul>
+<li><strong>Mutability</strong> - controls whether the field’s content can be modified by accessing the field
+<ul>
+<li><strong>Uniform</strong> - the content’s members cannot be ressigned or modified, even if otherwise allowed by their own modes. <em>Default</em></li>
+<li><strong>Mutable</strong> - the content’s members can be reassigned and/or modified, unless prevented by their own modes</li>
+</ul></li>
+<li><strong>Stability</strong> - controls whether the field’s content can change on its own while we are not accessing it in the local context
+<ul>
+<li><strong>Firm</strong> - the field’s content cannot change, except by explicitly modifying it locally. <em>Default</em></li>
+<li><strong>Volatile</strong> - the content might change inbetween times we access it, even if we aren’t locally modifying it. Examples would be modifying the content from a different process/thread, changes in data from external devices, or any changes not covered by Oura’s memory model. The content still satisfies the field’s constraint, and can only be accessed according to Oura’s memory model.</li>
+</ul></li>
+<li><strong>Scope limits</strong> - whether the ownership can be transfered outside of the current scope
+<ul>
+<li><strong>Non-leaving</strong> - content ownership can only be <em>borrowed</em> by fields of shorter lifespans or <em>transferred</em> to fields of equal lifespans, except if those fields’ content is <em>leaving</em>. <em>Default</em> for member fields.</li>
+<li><strong>Leaving</strong> - the ownership can be transferred to fields of longer lifespans. <em>Default</em> for function return fields.</li>
+</ul></li>
+</ul>
+<h3 id="field-specification">Field specification</h3>
+<p>The field specification consists of its name (if it’s a named field), its field modes (unless default), and its constraint separated by a colon (optional if it can be inferred from its initialization).</p>
+<div class="sourceCode" id="cb3" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39; optional</span><span class="re">⁾</span> «Field_Mode»<span class="re">⁽</span><span class="an">multiple</span><span class="re">⁾</span> ⤹: «Constraint»⤸<span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb4" data-caption="Example"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
+<p>The ownership is specified one of the following qualifiers:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Keyword</th>
+<th>Field name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code class="sourceCode oura"><span class="kw">const</span></code></td>
+<td>A constant</td>
+</tr>
+<tr class="even">
+<td><code class="sourceCode oura"><span class="kw">var</span></code></td>
+<td>A variable</td>
+</tr>
+<tr class="odd">
+<td><code class="sourceCode oura"><span class="kw">ref</span></code></td>
+<td>A reference</td>
+</tr>
+<tr class="even">
+<td><code class="sourceCode oura"><span class="kw">ptr</span></code></td>
+<td>A pointer</td>
+</tr>
+</tbody>
+</table>
+<p>If the field isn’t named, a field mode qualifier is mandatory.</p>
+<h3 id="constraint">Constraint</h3>
+<div class="sourceCode" id="cb5" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>«Constraint_Qualifier»<span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span> «Expression»<span class="re">⁽</span><span class="an">&#39;required trait&#39;-optional</span><span class="re">⁾</span></span></code></pre></div>
+<p>The constraint qualifiers can be put in the following groups:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Qualifier group</th>
+<th>Keywords</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mutability</td>
+<td><code class="sourceCode oura">unif</code>, <code class="sourceCode oura"><span class="kw">mut</span></code></td>
+<td>uniform</td>
+</tr>
+<tr class="even">
+<td>Stability</td>
+<td><code class="sourceCode oura">firm</code>, <code class="sourceCode oura"><span class="kw">vol</span></code></td>
+<td>firm</td>
+</tr>
+<tr class="odd">
+<td>Scope</td>
+<td>/, <code class="sourceCode oura">leav</code></td>
+<td>non-leaving</td>
+</tr>
+</tbody>
+</table>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
