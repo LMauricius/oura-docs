@@ -90,7 +90,7 @@ It describes whether the field owns its value and whether it can be regiven anot
 
 These are the field kinds:
 
-- **Constant** - *owns* its value but *cannot* be regiven another one.
+- **Uniform** - *owns* its value but *cannot* be regiven another one.
     The ownership *might* be shared with other constants, but it's unspecified whether two constants own the same record. *Default*
 - **Variable** - uniquely *owns* its value and *can* be regiven another one.
 - **Reference** - *doesn't own* its value and *cannot* be regiven another one
@@ -102,7 +102,7 @@ The purposes can also be optionally specified during field declaration and they 
 These are the value purpose categories:
 
 - **Mutability** - controls whether the field's value can be modified by accessing the field
-    - **Uniform** - the value's sub-fields cannot be modified, even if otherwise allowed by their own modes. *Default*
+    - **Constant** - the value's sub-fields cannot be modified, even if otherwise allowed by their own modes. *Default*
     - **Mutable** - the value's sub-fields can be modified, unless prevented by their own modes
 - **Stability** - controls whether the field's value can be modified unexpectedly
     - **Firm** - the field's value can only be explicitly modified locally. *Default*
@@ -135,14 +135,14 @@ Default purposes can be ommited, and the trait is optional only if it can be inf
 score var: Integer
 ```
 
-The kind is specified one of the following qualifiers:
+The kind is specified using one of the following qualifiers:
 
-| Keyword        | Field name  |
-| -------------- | ----------- |
-| `const`{.oura} | A constant  |
-| `var`{.oura}   | A variable  |
-| `ref`{.oura}   | A reference |
-| `ptr`{.oura}   | A pointer   |
+| Keyword       | Field kind  |
+| ------------- | ----------- |
+| `unif`{.oura} | A uniform   |
+| `var`{.oura}  | A variable  |
+| `ref`{.oura}  | A reference |
+| `ptr`{.oura}  | A pointer   |
 
 If the field isn't named, at least one field qualifier is mandatory.
 
@@ -154,8 +154,8 @@ If the field isn't named, at least one field qualifier is mandatory.
 
 The purpose qualifiers can be put in the following categories:
 
-| Purpose categories | Keywords                    | Default     |
-| ------------------ | --------------------------- | -------     |
-| Mutability         | `unif`{.oura}, `mut`{.oura} | uniform     |
-| Stability          | `firm`{.oura}, `vol`{.oura} | firm        |
-| Scope              | /, `leav`{.oura}            | non-leaving |
+| Purpose categories | Keywords                     | Default     |
+| ------------------ | ---------------------------  | -------     |
+| Mutability         | `const`{.oura}, `mut`{.oura} | constant    |
+| Stability          | `firm`{.oura}, `vol`{.oura}  | firm        |
+| Scope              | /, `leav`{.oura}             | non-leaving |

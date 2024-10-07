@@ -103,7 +103,7 @@
 <p>The field kind can be optionally specified during field declaration. It describes whether the field owns its value and whether it can be regiven another one. More on the ownership and lifetime pages.</p>
 <p>These are the field kinds:</p>
 <ul>
-<li><strong>Constant</strong> - <em>owns</em> its value but <em>cannot</em> be regiven another one. The ownership <em>might</em> be shared with other constants, but it’s unspecified whether two constants own the same record. <em>Default</em></li>
+<li><strong>Uniform</strong> - <em>owns</em> its value but <em>cannot</em> be regiven another one. The ownership <em>might</em> be shared with other constants, but it’s unspecified whether two constants own the same record. <em>Default</em></li>
 <li><strong>Variable</strong> - uniquely <em>owns</em> its value and <em>can</em> be regiven another one.</li>
 <li><strong>Reference</strong> - <em>doesn’t own</em> its value and <em>cannot</em> be regiven another one</li>
 <li><strong>Pointer</strong> - <em>doesn’t own</em> its value but <em>can</em> be regiven another one</li>
@@ -113,7 +113,7 @@
 <ul>
 <li><strong>Mutability</strong> - controls whether the field’s value can be modified by accessing the field
 <ul>
-<li><strong>Uniform</strong> - the value’s sub-fields cannot be modified, even if otherwise allowed by their own modes. <em>Default</em></li>
+<li><strong>Constant</strong> - the value’s sub-fields cannot be modified, even if otherwise allowed by their own modes. <em>Default</em></li>
 <li><strong>Mutable</strong> - the value’s sub-fields can be modified, unless prevented by their own modes</li>
 </ul></li>
 <li><strong>Stability</strong> - controls whether the field’s value can be modified unexpectedly
@@ -132,18 +132,18 @@
 <p>The field specification consists of its name (if it’s a named field), its kind (unless default), and its constraint separated by a colon (optional). If the constraint is specified, either the purpose or trait (or both) has to be specied. Default purposes can be ommited, and the trait is optional only if it can be inferred from its initialization.</p>
 <div class="sourceCode" id="cb5" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39; optional</span><span class="re">⁾</span> «Kind_Qualifier»<span class="re">⁽</span><span class="an">multiple</span><span class="re">⁾</span> <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>: «Constraint»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
 <div class="sourceCode" id="cb6" data-caption="Example"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
-<p>The kind is specified one of the following qualifiers:</p>
+<p>The kind is specified using one of the following qualifiers:</p>
 <table>
 <thead>
 <tr class="header">
 <th>Keyword</th>
-<th>Field name</th>
+<th>Field kind</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code class="sourceCode oura"><span class="kw">const</span></code></td>
-<td>A constant</td>
+<td><code class="sourceCode oura">unif</code></td>
+<td>A uniform</td>
 </tr>
 <tr class="even">
 <td><code class="sourceCode oura"><span class="kw">var</span></code></td>
@@ -174,8 +174,8 @@
 <tbody>
 <tr class="odd">
 <td>Mutability</td>
-<td><code class="sourceCode oura">unif</code>, <code class="sourceCode oura"><span class="kw">mut</span></code></td>
-<td>uniform</td>
+<td><code class="sourceCode oura"><span class="kw">const</span></code>, <code class="sourceCode oura"><span class="kw">mut</span></code></td>
+<td>constant</td>
 </tr>
 <tr class="even">
 <td>Stability</td>
