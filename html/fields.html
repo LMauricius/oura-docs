@@ -101,13 +101,28 @@
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>a <span class="op">=</span> <span class="st">&quot;Hello!&quot;</span> <span class="co">**Error: Can&#39;t give a Text value to the Integer field a</span></span></code></pre></div>
 <h2 id="kind">Kind</h2>
 <p>The field kind can be optionally specified during field declaration. It describes whether the field owns its value and whether it can be regiven another one. More on the ownership and lifetime pages.</p>
-<p>These are the field kinds:</p>
-<ul>
-<li><strong>Uniform</strong> - <em>owns</em> its value but <em>cannot</em> be regiven another one. The ownership <em>might</em> be shared with other constant uniforms, but it’s unspecified whether any two constant uniforms own the same record. <em>Default</em></li>
-<li><strong>Variable</strong> - uniquely <em>owns</em> its value and <em>can</em> be regiven another one.</li>
-<li><strong>Reference</strong> - <em>doesn’t own</em> its value and <em>cannot</em> be regiven another one</li>
-<li><strong>Pointer</strong> - <em>doesn’t own</em> its value but <em>can</em> be regiven another one</li>
-</ul>
+<p>The 4 field kinds are <strong>uniform</strong>, <strong>variable</strong>, <strong>reference</strong> and <strong>pointer</strong>. Which kinds own the value and which can be regiven one is described by the table:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Owns value</th>
+<th>Doesn’t own value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cannot be regiven to</strong></td>
+<td>Uniform</td>
+<td>Reference</td>
+</tr>
+<tr class="even">
+<td><strong>Can be regiven to</strong></td>
+<td>Variable</td>
+<td>Pointer</td>
+</tr>
+</tbody>
+</table>
 <p>The kind is specified using one of the following keywords:</p>
 <table>
 <thead>

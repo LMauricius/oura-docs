@@ -88,14 +88,13 @@ a = "Hello!" **Error: Can't give a Text value to the Integer field a
 The field kind can be optionally specified during field declaration.
 It describes whether the field owns its value and whether it can be regiven another one. More on the ownership and lifetime pages.
 
-These are the field kinds:
+The 4 field kinds are **uniform**, **variable**, **reference** and **pointer**.
+Which kinds own the value and which can be regiven one is described by the table:
 
-- **Uniform** - *owns* its value but *cannot* be regiven another one.
-    The ownership *might* be shared with other constant uniforms,
-    but it's unspecified whether any two constant uniforms own the same record. *Default*
-- **Variable** - uniquely *owns* its value and *can* be regiven another one.
-- **Reference** - *doesn't own* its value and *cannot* be regiven another one
-- **Pointer** - *doesn't own* its value but *can* be regiven another one
+|                          | Owns value | Doesn't own value |
+| ------------------------ | ---------- | ----------------- |
+| **Cannot be regiven to** | Uniform    | Reference         |
+| **Can be regiven to**    | Variable   | Pointer           |
 
 The kind is specified using one of the following keywords:
 
@@ -136,7 +135,7 @@ These are the value purpose categories:
 The purposes are specified using special keywords that can be put in following categories:
 
 | Purpose categories | Keywords                     | Default                  |
-| ------------------ | ---------------------------  | ------------------------ |
+| ------------------ | ---------------------------- | ------------------------ |
 | Mutability         | `const`{.oura}, `mut`{.oura} | constant                 |
 | Stability          | /, `vol`{.oura}              | stable                   |
 | Lifetime           | /, `liv out`{.oura}          | localized for sub-fields |
