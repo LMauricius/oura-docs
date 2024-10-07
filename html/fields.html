@@ -83,7 +83,7 @@
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>c: Number <span class="op">=</span> <span class="st">&quot;Hello!&quot;</span> <span class="co">**Error: Can&#39;t give a Text value to a Number field c</span></span></code></pre></div>
 <div class="sourceCode" id="cb3" data-caption="Regiving and constraints"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">** &#39;a&#39; is first given value of 1, but regiven value of 2.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co">** it needs to be a variable for us to be able to regive it another value,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co">** which is specified by the &#39;var&#39; qualifier</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co">** which is specified by the &#39;var&#39; keyword</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="co">** After we erroneously try to regive value of 4 to a field with a &#39;Text&#39; trait</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>a <span class="kw">var</span>: Number <span class="op">=</span> <span class="dv">1</span></span>
@@ -108,31 +108,7 @@
 <li><strong>Reference</strong> - <em>doesn’t own</em> its value and <em>cannot</em> be regiven another one</li>
 <li><strong>Pointer</strong> - <em>doesn’t own</em> its value but <em>can</em> be regiven another one</li>
 </ul>
-<h2 id="purposes">Purposes</h2>
-<p>The purposes can also be optionally specified during field declaration and they also have defaults if unspecified. These are the value purpose categories:</p>
-<ul>
-<li><strong>Mutability</strong> - controls whether the field’s value can be modified by accessing the field
-<ul>
-<li><strong>Constant</strong> - the value’s sub-fields cannot be modified, even if otherwise allowed by their own modes. <em>Default</em></li>
-<li><strong>Mutable</strong> - the value’s sub-fields can be modified, unless prevented by their own modes</li>
-</ul></li>
-<li><strong>Stability</strong> - controls whether the field’s value can be modified unexpectedly
-<ul>
-<li><strong>Firm</strong> - the field’s value can only be explicitly modified locally. <em>Default</em></li>
-<li><strong>Volatile</strong> - the value might be modified inbetween times we use it locally, even if we aren’t locally modifying it. Examples would be modifying the value from a different process/thread, changes in data from external devices, or any changes not covered by Oura’s memory model. The value still satisfies the field’s constraint.</li>
-</ul></li>
-<li><strong>Scope limits</strong> - whether the ownership can be moved outside of the current scope. More on the ownership and lifetime pages.
-<ul>
-<li><strong>Non-leaving</strong> - value ownership can only be <em>borrowed</em> by fields of shorter lifespans or <em>moved</em> to fields of equal lifespans, except if those fields’ value is <em>leaving</em>. <em>Default</em> for sub-fields.</li>
-<li><strong>Leaving</strong> - the ownership can be moved to fields of longer lifespans. <em>Default</em> for function return fields.</li>
-</ul></li>
-</ul>
-<h2 id="syntax">Syntax</h2>
-<h3 id="field-specification">Field specification</h3>
-<p>The field specification consists of its name (if it’s a named field), its kind (unless default), and its constraint separated by a colon (optional). If the constraint is specified, either the purpose or trait (or both) has to be specied. Default purposes can be ommited, and the trait is optional only if it can be inferred from its initialization.</p>
-<div class="sourceCode" id="cb5" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39; optional</span><span class="re">⁾</span> «Kind_Qualifier»<span class="re">⁽</span><span class="an">multiple</span><span class="re">⁾</span> <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>: «Constraint»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
-<div class="sourceCode" id="cb6" data-caption="Example"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
-<p>The kind is specified using one of the following qualifiers:</p>
+<p>The kind is specified using one of the following keywords:</p>
 <table>
 <thead>
 <tr class="header">
@@ -159,10 +135,26 @@
 </tr>
 </tbody>
 </table>
-<p>If the field isn’t named, at least one field qualifier is mandatory.</p>
-<h3 id="constraints">Constraints</h3>
-<div class="sourceCode" id="cb7" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>«Purpose_Qualifier»<span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span> «Expression»<span class="re">⁽</span><span class="an">&#39;trait&#39;-optional</span><span class="re">⁾</span></span></code></pre></div>
-<p>The purpose qualifiers can be put in the following categories:</p>
+<h2 id="purposes">Purposes</h2>
+<p>The purposes can also be optionally specified during field declaration and they also have defaults. These are the value purpose categories:</p>
+<ul>
+<li><strong>Mutability</strong> - controls whether the field’s value can be modified by accessing the field
+<ul>
+<li><strong>Constant</strong> - the value’s sub-fields cannot be modified, even if otherwise allowed by their own modes. <em>Default</em></li>
+<li><strong>Mutable</strong> - the value’s sub-fields can be modified, unless prevented by their own modes</li>
+</ul></li>
+<li><strong>Stability</strong> - controls whether the field’s value can be modified unexpectedly
+<ul>
+<li><strong>Firm</strong> - the field’s value can only be explicitly modified locally. <em>Default</em></li>
+<li><strong>Volatile</strong> - the value might be modified inbetween times we use it locally, even if we aren’t locally modifying it. Examples would be modifying the value from a different process/thread, changes in data from external devices, or any changes not covered by Oura’s memory model. The value still satisfies the field’s constraint.</li>
+</ul></li>
+<li><strong>Scope limits</strong> - whether the ownership can be moved outside of the current scope. More on the ownership and lifetime pages.
+<ul>
+<li><strong>Non-leaving</strong> - value ownership can only be <em>borrowed</em> by fields of shorter lifespans or <em>moved</em> to fields of equal lifespans, except if those fields’ value is <em>leaving</em>. <em>Default</em> for sub-fields.</li>
+<li><strong>Leaving</strong> - the ownership can be moved to fields of longer lifespans. <em>Default</em> for function return fields.</li>
+</ul></li>
+</ul>
+<p>The purposes are specified using special keywords that can be put in following categories:</p>
 <table>
 <thead>
 <tr class="header">
@@ -189,6 +181,14 @@
 </tr>
 </tbody>
 </table>
+<h2 id="syntax">Syntax</h2>
+<h3 id="field-specification">Field specification</h3>
+<p>The field specification consists of its name (if it’s a named field), its kind (unless default), and its constraint separated by a colon (optional). If the constraint is specified, either the purpose or trait (or both) has to be specied. Default purposes can be ommited, and the trait is optional only if it can be inferred from its initialization.</p>
+<div class="sourceCode" id="cb5" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39; optional</span><span class="re">⁾</span> «Kind_Keyword»<span class="re">⁽</span><span class="an">multiple</span><span class="re">⁾</span> <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>: «Constraint»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb6" data-caption="Example"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
+<p>If the field isn’t named, at least one field kind keyword is mandatory.</p>
+<h3 id="constraints">Constraints</h3>
+<div class="sourceCode" id="cb7" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>«Purpose_Keyword»<span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span> «Expression»<span class="re">⁽</span><span class="an">&#39;trait&#39;-optional</span><span class="re">⁾</span></span></code></pre></div>
 
                 </div>
             </div>

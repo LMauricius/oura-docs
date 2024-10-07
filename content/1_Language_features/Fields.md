@@ -62,7 +62,7 @@ c: Number = "Hello!" **Error: Can't give a Text value to a Number field c
 ```{.oura caption="Regiving and constraints"}
 ** 'a' is first given value of 1, but regiven value of 2.
 ** it needs to be a variable for us to be able to regive it another value,
-** which is specified by the 'var' qualifier
+** which is specified by the 'var' keyword
 ** After we erroneously try to regive value of 4 to a field with a 'Text' trait
 
 a var: Number = 1
@@ -96,9 +96,18 @@ These are the field kinds:
 - **Reference** - *doesn't own* its value and *cannot* be regiven another one
 - **Pointer** - *doesn't own* its value but *can* be regiven another one
 
+The kind is specified using one of the following keywords:
+
+| Keyword       | Field kind  |
+| ------------- | ----------- |
+| `unif`{.oura} | A uniform   |
+| `var`{.oura}  | A variable  |
+| `ref`{.oura}  | A reference |
+| `ptr`{.oura}  | A pointer   |
+
 ## Purposes
 
-The purposes can also be optionally specified during field declaration and they also have defaults if unspecified. 
+The purposes can also be optionally specified during field declaration and they also have defaults. 
 These are the value purpose categories:
 
 - **Mutability** - controls whether the field's value can be modified by accessing the field
@@ -118,6 +127,15 @@ These are the value purpose categories:
     - **Leaving** - the ownership can be moved to fields of longer lifespans.
         *Default* for function return fields.
 
+
+The purposes are specified using special keywords that can be put in following categories:
+
+| Purpose categories | Keywords                     | Default     |
+| ------------------ | ---------------------------  | -------     |
+| Mutability         | `const`{.oura}, `mut`{.oura} | constant    |
+| Stability          | `firm`{.oura}, `vol`{.oura}  | firm        |
+| Scope              | /, `leav`{.oura}             | non-leaving |
+
 ## Syntax
 
 ### Field specification
@@ -128,34 +146,17 @@ If the constraint is specified, either the purpose or trait (or both) has to be 
 Default purposes can be ommited, and the trait is optional only if it can be inferred from its initialization.
 
 ```{.ouraspec caption="Syntax" }
-«Identifier»⁽'name' optional⁾ «Kind_Qualifier»⁽multiple⁾ ⁽⤹⁾: «Constraint»⁽⤸⁾⁽optional⁾
+«Identifier»⁽'name' optional⁾ «Kind_Keyword»⁽multiple⁾ ⁽⤹⁾: «Constraint»⁽⤸⁾⁽optional⁾
 ```
 
 ```{.ouraspec caption="Example" }
 score var: Integer
 ```
 
-The kind is specified using one of the following qualifiers:
-
-| Keyword       | Field kind  |
-| ------------- | ----------- |
-| `unif`{.oura} | A uniform   |
-| `var`{.oura}  | A variable  |
-| `ref`{.oura}  | A reference |
-| `ptr`{.oura}  | A pointer   |
-
-If the field isn't named, at least one field qualifier is mandatory.
+If the field isn't named, at least one field kind keyword is mandatory.
 
 ### Constraints
 
 ```{.ouraspec caption="Syntax" }
-«Purpose_Qualifier»⁽more⁾ «Expression»⁽'trait'-optional⁾
+«Purpose_Keyword»⁽more⁾ «Expression»⁽'trait'-optional⁾
 ```
-
-The purpose qualifiers can be put in the following categories:
-
-| Purpose categories | Keywords                     | Default     |
-| ------------------ | ---------------------------  | -------     |
-| Mutability         | `const`{.oura}, `mut`{.oura} | constant    |
-| Stability          | `firm`{.oura}, `vol`{.oura}  | firm        |
-| Scope              | /, `leav`{.oura}             | non-leaving |
