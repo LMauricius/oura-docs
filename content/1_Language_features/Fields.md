@@ -114,7 +114,7 @@ These are the value purpose categories:
     - **Constant** - the value's sub-fields cannot be modified, even if otherwise allowed by their own modes. *Default*
     - **Mutable** - the value's sub-fields can be modified, unless prevented by their own modes
 - **Stability** - controls whether the field's value can be modified unexpectedly
-    - **Firm** - the field's value can only be explicitly modified locally. *Default*
+    - **Stable** - the field's value can only be explicitly modified locally. *Default*
     - **Volatile** - the value might be modified inbetween times we use it locally, even if we aren't locally modifying it.
         Examples would be modifying the value from a different process/thread,
         changes in data from external devices, or any changes not covered by Oura's memory model.
@@ -133,7 +133,7 @@ The purposes are specified using special keywords that can be put in following c
 | Purpose categories | Keywords                     | Default     |
 | ------------------ | ---------------------------  | -------     |
 | Mutability         | `const`{.oura}, `mut`{.oura} | constant    |
-| Stability          | `firm`{.oura}, `vol`{.oura}  | firm        |
+| Stability          | /, `vol`{.oura}              | stable      |
 | Scope              | /, `leav`{.oura}             | non-leaving |
 
 ## Syntax
