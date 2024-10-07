@@ -103,7 +103,7 @@
 <p>The field kind can be optionally specified during field declaration. It describes whether the field owns its value and whether it can be regiven another one. More on the ownership and lifetime pages.</p>
 <p>These are the field kinds:</p>
 <ul>
-<li><strong>Uniform</strong> - <em>owns</em> its value but <em>cannot</em> be regiven another one. The ownership <em>might</em> be shared with other constants, but it’s unspecified whether two constants own the same record. <em>Default</em></li>
+<li><strong>Uniform</strong> - <em>owns</em> its value but <em>cannot</em> be regiven another one. The ownership <em>might</em> be shared with other constant uniforms, but it’s unspecified whether any two constant uniforms own the same record. <em>Default</em></li>
 <li><strong>Variable</strong> - uniquely <em>owns</em> its value and <em>can</em> be regiven another one.</li>
 <li><strong>Reference</strong> - <em>doesn’t own</em> its value and <em>cannot</em> be regiven another one</li>
 <li><strong>Pointer</strong> - <em>doesn’t own</em> its value but <em>can</em> be regiven another one</li>
@@ -145,13 +145,13 @@
 </ul></li>
 <li><strong>Stability</strong> - controls whether the field’s value can be modified unexpectedly
 <ul>
-<li><strong>Firm</strong> - the field’s value can only be explicitly modified locally. <em>Default</em></li>
+<li><strong>Stable</strong> - the field’s value can only be explicitly modified locally. <em>Default</em></li>
 <li><strong>Volatile</strong> - the value might be modified inbetween times we use it locally, even if we aren’t locally modifying it. Examples would be modifying the value from a different process/thread, changes in data from external devices, or any changes not covered by Oura’s memory model. The value still satisfies the field’s constraint.</li>
 </ul></li>
-<li><strong>Scope limits</strong> - whether the ownership can be moved outside of the current scope. More on the ownership and lifetime pages.
+<li><strong>Lifetime limit</strong> - the maximum lifetime of the values. The value cannot be given to a field with a longer lifetime purpose. Note there’s a difference between lifetime limits and value lifetimes. More on the ownership and lifetime pages.
 <ul>
-<li><strong>Non-leaving</strong> - value ownership can only be <em>borrowed</em> by fields of shorter lifespans or <em>moved</em> to fields of equal lifespans, except if those fields’ value is <em>leaving</em>. <em>Default</em> for sub-fields.</li>
-<li><strong>Leaving</strong> - the ownership can be moved to fields of longer lifespans. <em>Default</em> for function return fields.</li>
+<li><strong>Localized</strong> - the value only lives inside the embracing scope Ownership can only be <em>borrowed</em> by fields of shorter value lifespans or <em>moved</em> to fields of equal value lifespans, <em>Default</em> for sub-fields.</li>
+<li><strong>Outliving</strong> - the value’s lifetime is arbitrarily long. The ownership can be moved to any field. <em>Default</em> for function return fields.</li>
 </ul></li>
 </ul>
 <p>The purposes are specified using special keywords that can be put in following categories:</p>
@@ -171,13 +171,13 @@
 </tr>
 <tr class="even">
 <td>Stability</td>
-<td><code class="sourceCode oura">firm</code>, <code class="sourceCode oura"><span class="kw">vol</span></code></td>
-<td>firm</td>
+<td>/, <code class="sourceCode oura"><span class="kw">vol</span></code></td>
+<td>stable</td>
 </tr>
 <tr class="odd">
-<td>Scope</td>
-<td>/, <code class="sourceCode oura">leav</code></td>
-<td>non-leaving</td>
+<td>Lifetime</td>
+<td>/, <code class="sourceCode oura">liv out</code></td>
+<td>localized for sub-fields</td>
 </tr>
 </tbody>
 </table>

@@ -91,7 +91,8 @@ It describes whether the field owns its value and whether it can be regiven anot
 These are the field kinds:
 
 - **Uniform** - *owns* its value but *cannot* be regiven another one.
-    The ownership *might* be shared with other constants, but it's unspecified whether two constants own the same record. *Default*
+    The ownership *might* be shared with other constant uniforms,
+    but it's unspecified whether any two constant uniforms own the same record. *Default*
 - **Variable** - uniquely *owns* its value and *can* be regiven another one.
 - **Reference** - *doesn't own* its value and *cannot* be regiven another one
 - **Pointer** - *doesn't own* its value but *can* be regiven another one
@@ -119,22 +120,26 @@ These are the value purpose categories:
         Examples would be modifying the value from a different process/thread,
         changes in data from external devices, or any changes not covered by Oura's memory model.
         The value still satisfies the field's constraint.
-- **Scope limits** - whether the ownership can be moved outside of the current scope. More on the ownership and lifetime pages.
-    - **Non-leaving** - value ownership can only be *borrowed* by fields of shorter lifespans 
-        or *moved* to fields of equal lifespans,
-        except if those fields' value is *leaving*.
+- **Lifetime limit** - the maximum lifetime of the values.
+    The value cannot be given to a field with a longer lifetime purpose.
+    Note there's a difference between lifetime limits and value lifetimes.
+    More on the ownership and lifetime pages.
+    - **Localized** - the value only lives inside the embracing scope
+        Ownership can only be *borrowed* by fields of shorter value lifespans 
+        or *moved* to fields of equal value lifespans,
         *Default* for sub-fields.
-    - **Leaving** - the ownership can be moved to fields of longer lifespans.
+    - **Outliving** - the value's lifetime is arbitrarily long.
+        The ownership can be moved to any field.
         *Default* for function return fields.
 
 
 The purposes are specified using special keywords that can be put in following categories:
 
-| Purpose categories | Keywords                     | Default     |
-| ------------------ | ---------------------------  | -------     |
-| Mutability         | `const`{.oura}, `mut`{.oura} | constant    |
-| Stability          | /, `vol`{.oura}              | stable      |
-| Scope              | /, `leav`{.oura}             | non-leaving |
+| Purpose categories | Keywords                     | Default                  |
+| ------------------ | ---------------------------  | ------------------------ |
+| Mutability         | `const`{.oura}, `mut`{.oura} | constant                 |
+| Stability          | /, `vol`{.oura}              | stable                   |
+| Lifetime           | /, `liv out`{.oura}          | localized for sub-fields |
 
 ## Syntax
 
