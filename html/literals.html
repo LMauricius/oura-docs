@@ -40,7 +40,77 @@
             </div>
             <div class="main">
                 <div class="pagecontent">
-                    
+                    <h1 id="literals">Literals</h1>
+<h2 id="types-of-literals">Types of literals</h2>
+<p>Literal values are values written directly where they are used, that
+don’t depend on any other values.</p>
+<p>There are numeric and textual literals.</p>
+<h2 id="examples">Examples</h2>
+<pre class="oura" data-caption="Integer number literal"><code>42</code></pre>
+<pre class="oura" data-caption="Real number literal"><code>3.141592</code></pre>
+<pre class="oura" data-caption="Text literal"><code>&quot;Hello world!&quot;</code></pre>
+<h2 id="numeric-literals">Numeric literals</h2>
+<p>Numeric literals are written using digits. If they contain a decimal
+dot, their known trait is <code class="oura">Real</code>. Otherwise,
+their known trait is <code class="oura">Integer</code>.</p>
+<p>Optionally, numbers can have a prefix that specifies the numeric base
+it is written in. No matter the base, decimal dot and exponent of the
+same base are supported. Supported bases are:</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 34%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Base</th>
+<th>Prefix</th>
+<th>Digits allowed</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Decimal</td>
+<td><em>No prefix</em></td>
+<td>0-9</td>
+<td><code class="oura">103</code></td>
+</tr>
+<tr class="even">
+<td>Binary</td>
+<td><code>0b</code></td>
+<td>0 and 1</td>
+<td><code class="oura">0b1001011</code></td>
+</tr>
+<tr class="odd">
+<td>Octal</td>
+<td><code>0o</code></td>
+<td>0-7</td>
+<td><code class="oura">0o742</code></td>
+</tr>
+<tr class="even">
+<td>Hexadecimal</td>
+<td><code>0x</code></td>
+<td>0-9, A, B, C, D, E, F</td>
+<td><code class="oura">0xFF8E32</code></td>
+</tr>
+</tbody>
+</table>
+<p>Hexadecimal digits of values 10-15 are written using letters A-F,
+which can be uppercase or lowercase.</p>
+<p>Numbers can also be written using scientific notation by writing the
+exponent after the number. For all bases the exponent starts with an
+underscore <code>_</code>, followed by either <code>+</code> or
+<code>-</code> for positive and negative exponents and the exponent
+itself. The exponent is always written as a decimal number, but the base
+of the power is the same as for the significand.</p>
+<pre class="oura" data-caption="Scientific notation of a literal"><code>avogadro = 6.02_+23</code></pre>
+<p>Numbers can also optionally have underscores between digits, for
+readability. Unless it’s the start of the exponent, underscores are
+ignored.</p>
+<pre class="oura" data-caption="Underscores between digits"><code>prize = 1_000_500_000</code></pre>
 
                 </div>
             </div>
