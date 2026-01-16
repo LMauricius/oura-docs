@@ -46,16 +46,16 @@
 introduced. Notes are put in comments started with a hash symbol (<code
 class="oura">code # comment</code>), which are meant for humans and
 ignored by the compiler.</p>
-<p>Comments started with a <code>#</code> span until the end of the
+<p>Comments start with a <code>#</code> and span until the end of the
 line. Multiline comments are surrounded by <code>/*</code> and
 <code>*/</code> characters.</p>
 <pre class="oura" data-caption="A Hello world example"><code># This is a &#39;Hello world!&#39; example
 
 # We need to write to console
-use write with Console module Io Std
+import write with [target = Console module Io Std]
 
 # The main program
-main args mut =&gt; {
+main[args, import write] var =&gt; {
     write &quot;Hello world!&quot;
 }</code></pre>
 <p>Most examples don’t mention the <em>modules</em> or the <em>main
@@ -65,9 +65,9 @@ function. If you want to run them yourself, place them inside this code
 template:</p>
 <pre class="oura"
 data-caption="The Oura docs example code template"><code>import module Io Std
-import (read, write) with Console Io
+import [read, write] with [target = Console Io]
 
-main args mut vol =&gt; {
+main[args, import read, import write] var vol =&gt; {
     # Insert example code snippet here
 }</code></pre>
 <p>The exact meaning of all special words and symbols will be explained

@@ -5,17 +5,17 @@ Code examples are used to better convey language concepts we introduced.
 Notes are put in comments started with a hash symbol (`code # comment`{.oura}),
 which are meant for humans and ignored by the compiler.
 
-Comments started with a `#` span until the end of the line.
+Comments start with a `#` and span until the end of the line.
 Multiline comments are surrounded by `/*` and `*/` characters.
 
 ```{.oura caption="A Hello world example"}
 # This is a 'Hello world!' example
 
 # We need to write to console
-use write with Console module Io Std
+import write with [target = Console module Io Std]
 
 # The main program
-main args mut => {
+main[args, import write] var => {
     write "Hello world!"
 }
 ```
@@ -27,9 +27,9 @@ If you want to run them yourself, place them inside this code template:
 
 ```{.oura caption="The Oura docs example code template"}
 import module Io Std
-import (read, write) with Console Io
+import [read, write] with [target = Console Io]
 
-main args mut vol => {
+main[args, import read, import write] var vol => {
     # Insert example code snippet here
 }
 ```
