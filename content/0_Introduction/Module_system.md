@@ -1,7 +1,7 @@
 # Module system
 
 ## Modules
-The Oura code is organized into objects called modules. The modules are a way to separate the code in meaningful units, just like a book is separated into chapters. For example, we can have a math module, a 3D graphics module and a physics engine module. In addition, finished modules can easily be distributed to other programmers without requiring them to copy-paste code into their projects. The code specifies which modules it uses, which makes its dependencies clearer.
+The Oura code is organized into constructs called modules. The modules are a way to separate the code in meaningful units, just like a book is separated into chapters. For example, we can have a math module, a 3D graphics module and a physics engine module. In addition, finished modules can easily be distributed to other programmers without requiring them to copy-paste code into their projects. The code specifies which modules it uses, which makes its dependencies clearer.
 
 ## Module directory structure
 Source files are organized in directories corresponding to modules. The module directories are located in one of the source locations specified to the compiler. The files inside a directory can be thought of as parts of one whole file describing a single module. It's useful to separate the module into several (many) files by its different functionalities to make editing the code easier.
@@ -9,25 +9,25 @@ Source files are organized in directories corresponding to modules. The module d
 If we have the following directory structure inside the source directory:
 ```
 MathModule/
-    BasicOperationsFile.ora
-    SetOperationsFile.ora
+    BasicOperationsFile.oura
+    SetOperationsFile.oura
 PhysicsModule/
-    ShapesFile.ora
-    ForcesFile.ora
-    SimulationManagementFile.ora
+    ShapesFile.oura
+    ForcesFile.oura
+    SimulationManagementFile.oura
 ```
 The compiler will build 2 modules : `MathModule` and `PhysicsModule`.
 
 ## Compiled modules
-Each module gets compiled into a *binary* file. The binary file can be an *executable*, or a *library* used by other binary files. The libraries are used to distribute existing functionalities to other developers and executables can be launched by users to perform tasks. In Oura, libraries come with *module interface files* which describe which functionalities the module has that are stored in the library. In the above scenario, we would have the following interface files after installing the modules on the developer's system:
+Each module gets compiled into a *binary* file. The binary file can be an *executable*, or a *library* used by other binary files. The libraries are used to distribute existing functionalities to other developers and executables can be launched by users to perform tasks. In Oura, libraries come with *module interface files* which describe which functionalities the module has that are stored in the library. In the above scenario, we could have the following interface files after installing the modules on the developer's system:
 ```
 MathModule/
-    BasicOperationsFile.orai
-    SetOperationsFile.orai
+    BasicOperationsFile.ourai
+    SetOperationsFile.ourai
 PhysicsModule/
-    ShapesFile.orai
-    ForcesFile.orai
-    SimulationManagementFile.orai
+    ShapesFile.ourai
+    ForcesFile.ourai
+    SimulationManagementFile.ourai
 ```
 Additionally, we could have the following library files stored in the system's library directory:
 ```

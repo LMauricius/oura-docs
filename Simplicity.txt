@@ -1,0 +1,7 @@
+    Comprehension and problem solving are manageable once the principles underlying the system are well understood.
+    The system makes use of well-known cultural markers to ease comprehension.
+    It maintains design consistency.
+    It makes good use of semantics.
+    It balances the needs of flexibility with the boundaries and domain of the system.
+    Complexity is circumscribed as much as possible.
+    Unnecessary complexity is identified, and removed. 

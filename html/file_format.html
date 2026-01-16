@@ -27,9 +27,11 @@
         </li>
         <li>2&nbspLanguage features
         <ul>
-            <li><a href="fields.html">1&nbspFields</a>
+            <li><a href="literals.html">1&nbspLiterals</a>
             </li>
-            <li><a href="records.html">2&nbspRecords</a>
+            <li><a href="fields.html">2&nbspFields</a>
+            </li>
+            <li><a href="records.html">3&nbspRecords</a>
             </li>
         </ul>
         </li>
@@ -39,9 +41,13 @@
             <div class="main">
                 <div class="pagecontent">
                     <h1 id="file-format">File format</h1>
-<p>Here are described the file formats, folder structures and conventions used in Oura.</p>
+<p>Here are described the file formats, folder structures and
+conventions used in Oura.</p>
 <h2 id="file-naming">File naming</h2>
-<p>The file names must start with a letter and can contain leters, digits and underscores. Double underscores are forbidden. If the file has multiple extensions (separated by multiple dots), all but the last extension will be ignored.</p>
+<p>The file names must start with a letter and can contain leters,
+digits and underscores. Double underscores are forbidden. If the file
+has multiple extensions (separated by multiple dots), all but the last
+extension will be ignored.</p>
 <h2 id="file-extensions">File extensions</h2>
 <table>
 <thead>
@@ -53,7 +59,7 @@
 <tbody>
 <tr class="odd">
 <td>Source file</td>
-<td><code>ora</code></td>
+<td><code>oura</code></td>
 </tr>
 <tr class="even">
 <td>Module interface file</td>
@@ -61,10 +67,27 @@
 </tr>
 </tbody>
 </table>
+<h2 id="compiler">Compiler</h2>
+<p>A compiler is a program that reads code written in a programming
+language of choice, understands it, and usually creates a binary file
+understood by the machine.</p>
+<p>To run Oura code, you need to install an Oura compiler.</p>
 <h3 id="source-files">Source files</h3>
-<p>The source files are the ones containing the Oura code. They get compiled into a <em>binary file</em>, which can be either an <em>executable</em> or a <em>library</em>. Multiple source files can be used to compile a single binary file. If the binary we are compiling is a library meant to be used by other developers, the source files can also produce <em>module interface files</em> which simplify the loading of library symbols without showing the full source code to others.</p>
+<p>The source files are the ones containing Oura code. Multiple source
+files are combined into a single <em>module</em> if they are stored in a
+single directory. Oura module directories should also have an extension
+<code>.oura</code>.</p>
+<p>Before running or using Oura programs modules get compiled into a
+<em>binary file</em>, which can be either an <em>executable</em> or a
+<em>library</em>. If the binary we are compiling is a library meant to
+be used by other developers, the source files can also produce
+<em>module interface files</em> which simplify the loading of library
+symbols without revealing the full source code to others.</p>
 <h2 id="text-file-format">Text file format</h2>
-<p>The source files should always be saved using the <code>UTF-8</code> encoding. Other formats might not be recognized or read properly by the compiler. Most modern text editors use <code>UTF-8</code> by default.</p>
+<p>Source files should always be saved using the <code>UTF-8</code>
+encoding. Other formats might not be recognized or read properly by the
+compiler. Most modern text editors use <code>UTF-8</code> by
+default.</p>
 
                 </div>
             </div>

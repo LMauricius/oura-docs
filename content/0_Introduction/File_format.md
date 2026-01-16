@@ -8,14 +8,23 @@ The file names must start with a letter and can contain leters, digits and under
 
 ## File extensions
 
-| File type | Extension |
-| --------- | --------- |
-| Source file | `ora` |
-| Module interface file | `orai` |
+| File type             | Extension |
+| --------------------- | --------- |
+| Source file           | `oura`    |
+| Module interface file | `orai`    |
+
+## Compiler
+
+A compiler is a program that reads code written in a programming language of choice,
+understands it, and usually creates a binary file understood by the machine.
+
+To run Oura code, you need to install an Oura compiler.
 
 ### Source files
-The source files are the ones containing the Oura code. They get compiled into a *binary file*, which can be either an *executable* or a *library*. Multiple source files can be used to compile a single binary file. If the binary we are compiling is a library meant to be used by other developers, the source files can also produce *module interface files* which simplify the loading of library symbols without showing the full source code to others.
+The source files are the ones containing Oura code. Multiple source files are combined into a single *module* if they are stored in a single directory. Oura module directories should also have an extension `.oura`.
+
+Before running or using Oura programs modules get compiled into a *binary file*, which can be either an *executable* or a *library*. If the binary we are compiling is a library meant to be used by other developers, the source files can also produce *module interface files* which simplify the loading of library symbols without revealing the full source code to others.
 
 ## Text file format
 
-The source files should always be saved using the `UTF-8` encoding. Other formats might not be recognized or read properly by the compiler. Most modern text editors use `UTF-8` by default.
+Source files should always be saved using the `UTF-8` encoding. Other formats might not be recognized or read properly by the compiler. Most modern text editors use `UTF-8` by default.

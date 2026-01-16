@@ -27,9 +27,11 @@
         </li>
         <li>2&nbspLanguage features
         <ul>
-            <li><a href="fields.html">1&nbspFields</a>
+            <li><a href="literals.html">1&nbspLiterals</a>
             </li>
-            <li><a href="records.html">2&nbspRecords</a>
+            <li><a href="fields.html">2&nbspFields</a>
+            </li>
+            <li><a href="records.html">3&nbspRecords</a>
             </li>
         </ul>
         </li>
@@ -40,39 +42,71 @@
                 <div class="pagecontent">
                     <h1 id="code-reading">Code reading</h1>
 <h2 id="examples">Examples</h2>
-<p>Code examples are used to better convey language concepts we introduced. Notes are put in comments started with a double star (<code class="sourceCode oura">code <span class="co">** comment</span></code>), which are meant for humans and ignored by the compiler.</p>
-<div class="sourceCode" id="cb1" data-caption="A Hello world example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">** This is a &#39;Hello world!&#39; example</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">** We need to write to console</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">use</span> write <span class="cf">with</span> Console <span class="kw">module</span> Io Std</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">** The main program</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>main <span class="op">=</span> ProgramArgs <span class="kw">mut</span> <span class="op">=&gt;</span> {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    write<span class="op">!</span> <span class="st">&quot;Hello world!&quot;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
-<p>Most examples don’t mention the so-called ‘modules’ or the ‘main function’. Unless they mention those things, it is assumed the necessary ‘modules’ are used and the example code snippet is placed in the ‘main function’. If you want to run them yourself, place them inside this code template:</p>
-<div class="sourceCode" id="cb2" data-caption="The Oura docs example code template"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">use</span> <span class="kw">module</span> Io Std</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">use</span> (read, write) <span class="cf">with</span> Console Io</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>main <span class="op">=</span> ProgramArgs <span class="kw">mut</span> <span class="kw">vol</span> <span class="op">=&gt;</span> {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="co">** Insert example code snippet here</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>}</span></code></pre></div>
-<h2 id="syntax-definitions">Syntax definitions</h2>
-<p>In these docs, the language syntax is defined in code blocks. Sometimes, syntactic structures are not mandatory or can repeat, in which cases we use one of the following meta-markers:</p>
+<p>Code examples are used to better convey language concepts we
+introduced. Notes are put in comments started with a hash symbol (<code
+class="oura">code # comment</code>), which are meant for humans and
+ignored by the compiler.</p>
+<p>Comments started with a <code>#</code> span until the end of the
+line. Multiline comments are surrounded by <code>/*</code> and
+<code>*/</code> characters.</p>
+<pre class="oura" data-caption="A Hello world example"><code># This is a &#39;Hello world!&#39; example
+
+# We need to write to console
+use write with Console module Io Std
+
+# The main program
+main args mut =&gt; {
+    write &quot;Hello world!&quot;
+}</code></pre>
+<p>Most examples don’t mention the <em>modules</em> or the <em>main
+function</em>. Unless they mention those, it is assumed the necessary
+modules are imported and the example code snippet is placed in the main
+function. If you want to run them yourself, place them inside this code
+template:</p>
+<pre class="oura"
+data-caption="The Oura docs example code template"><code>import module Io Std
+import (read, write) with Console Io
+
+main args mut vol =&gt; {
+    # Insert example code snippet here
+}</code></pre>
+<p>The exact meaning of all special words and symbols will be explained
+in other chapters. For now, assume the code put into the main function
+can be run.</p>
+<h2 id="syntax-specification">Syntax specification</h2>
+<p>In these docs, the exact language syntax is defined alongside
+examples. Sometimes to simplify understanding the syntax we use one of
+the following markers:</p>
 <ul>
-<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span></code> - The previous structure can, or may not be used</li>
-<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span></code> - The structure is optional, but can also repeat</li>
-<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span></code> - The structure is repeating, but each entry is separated by a comma, possibly followed by whitespace. All in a single line.</li>
-<li><code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">linelist</span><span class="re">⁾</span></code> - The structure is repeating, but each entry is in its own line. Empty/whitespace lines are allowed inbetween for readability.</li>
+<li><code
+class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">optional</span><span class="re">⁾</span></code>
+- The previous structure can, or may not be used</li>
+<li><code
+class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">more</span><span class="re">⁾</span></code>
+- The structure is optional, but can also repeat</li>
+<li><code
+class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span></code>
+- The structure is repeating, but each entry is separated by a comma,
+possibly followed by whitespace. All in a single line.</li>
+<li><code
+class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">linelist</span><span class="re">⁾</span></code>
+- The structure is repeating, but each entry is in its own line.
+Empty/whitespace lines are allowed inbetween for readability.</li>
 </ul>
-<p>The parts of code are also often surrounded by meta-parentheses like this: <code class="sourceCode ouraspec"><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>code<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾</span></code>. They look like parentheses with arrows pointing down to the code. This is used to note that the meta-markers apply to a longer part of code, like this: <code class="sourceCode ouraspec">some code <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>some marked code<span class="re">⁽</span><span class="an">⤸optional</span><span class="re">⁾</span> some more code</code></p>
+<p>The parts of code are also often surrounded by marker-parentheses
+like this: <code class="ouraspec">⁽⤹⁾code⁽⤸⁾</code>. These look like
+parentheses with arrows pointing down to the code. This is used to note
+that the markers apply to a longer part of code, like this: <code
+class="ouraspec">some code ⁽⤹⁾some marked code⁽⤸optional⁾ some more code</code></p>
 <h2 id="bracket-types-and-names">Bracket types and names</h2>
 <p>We use the following kinds of brackets:</p>
 <ul>
-<li><code>(</code> and <code>)</code>: round <em>parens</em> (parentheses)</li>
+<li><code>(</code> and <code>)</code>: round <em>parens</em>
+(parentheses)</li>
 <li><code>[</code> and <code>]</code>: square <em>brackets</em></li>
 <li><code>{</code> and <code>}</code>: curly <em>braces</em></li>
-<li><code>&lt;</code> and <code>&gt;</code>: angular <em>chevrons</em></li>
+<li><code>&lt;</code> and <code>&gt;</code>: angular
+<em>chevrons</em></li>
 </ul>
 
                 </div>
