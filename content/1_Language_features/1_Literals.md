@@ -84,8 +84,8 @@ The supported sequences are in the table below:
 | \\t           | Horizontal tab                                                           |
 | \\v           | Vertical tab                                                             |
 | \\\\          | Backslash (literal backslash character)                                  |
-| \\'           | Apostrophe/single quote (doesn't end the text literal)                   |
-| \\"           | Double quote (doesn't end the text literal)                              |
+| \\\'          | Apostrophe/single quote (doesn't end the text literal)                   |
+| \\\"          | Double quote (doesn't end the text literal)                              |
 | \\b           | Backspace                                                                |
 | \\e           | Escape (UTF-8 character)                                                 |
 | \\f           | Formfeed/page break                                                      |
@@ -95,7 +95,7 @@ The supported sequences are in the table below:
 | \\u*XXXX*     | Unicode code point *XXXX* (0000-ffff), below \\x10000                    |
 | \\U*XXXXXXXX* | Unicode code point *XXXXXXXX* (exactly 8 hex digits)                     |
 
-```{.oura caption="Text literals"}
+```{.oura caption="Escape sequences in text"}
 # Writes 'Regards,' and 'Oura's author' in two lines
 write "Regards,\nOura's author"
 ```
