@@ -27,9 +27,9 @@ If you want to run them yourself, place them inside this code template:
 
 ```{.oura caption="The Oura docs example code template"}
 import module Io Std
-import [read, write] with [target = Console Io]
+import (read, write) with [target = Console Io]
 
-main[args, import read, import write] var vol => {
+main[args, import (read, write)] => {
     # Insert example code snippet here
 }
 ```

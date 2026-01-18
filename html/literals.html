@@ -51,8 +51,8 @@ don’t depend on any other values.</p>
 <pre class="oura" data-caption="Text literal"><code>&quot;Hello world!&quot;</code></pre>
 <h2 id="numeric-literals">Numeric literals</h2>
 <p>Numeric literals are written using digits. If they contain a decimal
-dot, their known trait is <code class="oura">Real</code>. Otherwise,
-their known trait is <code class="oura">Integer</code>.</p>
+dot, their trait is <code class="oura">Real</code>. Otherwise, their
+trait is <code class="oura">Integer</code>.</p>
 <p>Optionally, numbers can have a prefix that specifies the numeric base
 it is written in. No matter the base, decimal dot and exponent of the
 same base are supported. Supported bases are:</p>
@@ -111,6 +111,129 @@ of the power is the same as for the significand.</p>
 readability. Unless it’s the start of the exponent, underscores are
 ignored.</p>
 <pre class="oura" data-caption="Underscores between digits"><code>prize = 1_000_500_000</code></pre>
+<h2 id="textual-literals">Textual literals</h2>
+<p>Textual literals all have the trait <code class="oura">Text</code>.
+They are strings of characters used to build messages that will at some
+point be shown to the user in a human-understandable form. The
+characters themselves are stored using numeric codes according to UTF-8
+text format.</p>
+<p><em>Normal text</em> is surrounded by either single <code>'</code> or
+double <code>"</code> quotes. It cannot be split along multiple lines
+and cannot contain non-printable characters. The quotes aren’t included
+in the literal’s characters, but everything inbetween is. For special
+characters (eg. invisible or unsupported symbols) you can use escape
+sequences.</p>
+<pre class="oura" data-caption="Text literals"><code>helloText = &#39;Hello,&#39;
+worldText = &quot;World!
+write (helloText + worldText) # Writes &#39;Hello,world!&#39;</code></pre>
+<p><em>Escape sequences</em> start with a backslash <code>\</code>. Each
+sequence represents a <em>single</em> character in the text. The
+supported sequences are in the table below:</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sequence</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>\n</td>
+<td>Newline</td>
+</tr>
+<tr class="even">
+<td>\r</td>
+<td>Carriage return</td>
+</tr>
+<tr class="odd">
+<td>\t</td>
+<td>Horizontal tab</td>
+</tr>
+<tr class="even">
+<td>\v</td>
+<td>Vertical tab</td>
+</tr>
+<tr class="odd">
+<td>\\</td>
+<td>Backslash (literal backslash character)</td>
+</tr>
+<tr class="even">
+<td>\’</td>
+<td>Apostrophe/single quote (doesn’t end the text literal)</td>
+</tr>
+<tr class="odd">
+<td>\”</td>
+<td>Double quote (doesn’t end the text literal)</td>
+</tr>
+<tr class="even">
+<td>\b</td>
+<td>Backspace</td>
+</tr>
+<tr class="odd">
+<td>\e</td>
+<td>Escape (UTF-8 character)</td>
+</tr>
+<tr class="even">
+<td>\f</td>
+<td>Formfeed/page break</td>
+</tr>
+<tr class="odd">
+<td>\a</td>
+<td>Alert/beep/bell (used for some terminals)</td>
+</tr>
+<tr class="even">
+<td>\<em>DDD</em></td>
+<td>Character with numeric code written with decimal digits <em>DDD</em>
+(0-255)</td>
+</tr>
+<tr class="odd">
+<td>\x<em>XX</em></td>
+<td>Character with numeric code written with hexadecimal digits
+<em>XX</em> (00-ff)</td>
+</tr>
+<tr class="even">
+<td>\u<em>XXXX</em></td>
+<td>Unicode code point <em>XXXX</em> (0000-ffff), below \x10000</td>
+</tr>
+<tr class="odd">
+<td>\U<em>XXXXXXXX</em></td>
+<td>Unicode code point <em>XXXXXXXX</em> (exactly 8 hex digits)</td>
+</tr>
+</tbody>
+</table>
+<pre class="oura" data-caption="Text literals"><code># Writes &#39;Regards,&#39; and &#39;Oura&#39;s author&#39; in two lines
+write &quot;Regards,\nOura&#39;s author&quot;</code></pre>
+<p><em>Raw text</em> starts with a double quote <code>"</code>
+immediately followed by a new line. It is used for easier writing of
+text with special characters when we don’t want to use escape sequences.
+It follows special rules: - Escape sequences aren’t supported. Backslash
+<code>\</code> just becomes the <code>\</code> character of the text
+literal. - Each line of the text starts with a single quote
+<code>'</code> and spans until the end of the line in the code. All
+characters after the first <code>'</code> just become characters of the
+text, including quotes <code>'</code> and <code>"</code>. - A line that
+starts with a <code>"</code> ends the raw text. It’s not treated as an
+additional line of text literal. - Whitespace before the first
+<code>'</code> or <code>#</code> is ignored, just as lines that contain
+only whitespace (empty lines). - Multiple newlines (empty lines) just
+become a single newline of the text. - Comments are supported and
+started using <code>#</code> instead of <code>'</code>. They span until
+the end of the line. - Lines that start with anything besides
+<code>'</code>, <code>"</code> or <code>#</code> after the whitespace
+aren’t allowed.</p>
+<pre class="oura" data-caption="Raw text"><code>myText = &quot;
+    &#39;This is some long text...
+    # This is a comment, inside the text literal!
+    # Next we have another line of the literal:
+    &#39;We can have special characters in this text, like \, &#39;, and &quot;.
+    &#39;
+    &#39;Regards,
+    &#39;Oura&#39;s author.
+    &quot; # This is the end of a raw textual literal</code></pre>
 
                 </div>
             </div>
