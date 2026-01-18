@@ -104,6 +104,7 @@ write "Regards,\nOura's author"
 It is used for easier writing of text with special characters
 when we don't want to use escape sequences.
 It follows special rules:
+
 - Escape sequences aren't supported. Backslash `\` just becomes the `\` character of the text literal.
 - Each line of the text starts with a single quote `'` and spans until the end of the line in the code. All characters after the first `'` just become characters of the text, including quotes `'` and `"`.
 - A line that starts with a `"` ends the raw text. It's not treated as an additional line of text literal.

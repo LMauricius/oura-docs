@@ -42,19 +42,31 @@
                 <div class="pagecontent">
                     <h1 id="fields">Fields</h1>
 <h2 id="description">Description</h2>
-<p>Fields store values so we can identify, use and modify them.</p>
-<p>Each field has the following: - <strong>Name</strong>: used to
-identify a field. Unnamed fields can also be used within tuples. -
-<strong>Value</strong>: data we reach through the field. Can be anything
-from numbers and text to more complex records. -
-<strong>Constraint</strong>: a set of requirements that the value always
-satisfies. It is a combination of: - <strong>Trait</strong>: a record
-that defines what properties the value fundamentally has. For example,
-<code class="sourceCode oura">Count</code>, <code
+<p>Fields store values so we can identify, use and modify them. They
+usually have a <em>name</em> (with rare exceptions) which refers to the
+field in the code.</p>
+<div class="sourceCode" id="cb1" data-caption="A field"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> <span class="st">&quot;Yo!&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>write greeting <span class="co"># Writes &#39;Yo!&#39;</span></span></code></pre></div>
+<p>Each field has the following:</p>
+<ul>
+<li><strong>Name</strong>: used to identify a field. Unnamed fields can
+also be used within tuples.</li>
+<li><strong>Value</strong>: data we reach through the field. Can be
+anything from numbers and text to more complex records.</li>
+<li><strong>Ability</strong>: a set of properties that tells us what we
+can do with that field. It is a combination of:
+<ul>
+<li><strong>Trait</strong>: a record that defines what requirements the
+value always satisfies. For example, <code
+class="sourceCode oura">Count</code>, <code
 class="sourceCode oura">Real</code> or <code
 class="sourceCode oura">Text</code>. More about this on the trait system
-pages. - <strong>Purposes</strong>: describe how the value can be used
-through this field</p>
+pages.</li>
+<li><strong>Qualities</strong>: describe how the value can be used
+through this field</li>
+</ul></li>
+</ul>
 <h2 id="usage">Usage</h2>
 <h2 id="syntax">Syntax</h2>
 <h3 id="field-specification">Field specification</h3>
@@ -64,35 +76,35 @@ colon (optional). If the constraint is specified, either the purpose or
 trait (or both) has to be specied. Default purposes can be ommited, and
 the trait is optional only if it can be inferred from its
 initialization.</p>
-<div class="sourceCode" id="cb1" data-caption="Syntax"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39; optional</span><span class="re">⁾</span> «Qualities» <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>: «Expression»<span class="re">⁽</span><span class="an">&#39;constraint&#39;</span><span class="re">⁾⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
-<div class="sourceCode" id="cb2" data-caption="Example"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
+<div class="sourceCode" id="cb2" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>«Identifier»<span class="re">⁽</span><span class="an">&#39;name&#39; optional</span><span class="re">⁾</span> «Qualities» <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>: «Expression»<span class="re">⁽</span><span class="an">&#39;constraint&#39;</span><span class="re">⁾⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">optional</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb3" data-caption="Example"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>score <span class="kw">var</span>: Integer</span></code></pre></div>
 <p>If the field isn’t named, the field ownership keyword is
 mandatory.</p>
 <h3 id="qualities">Qualities</h3>
 <p>Each quality can only appear once in the specification</p>
-<div class="sourceCode" id="cb3" data-caption="Syntax"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>«Ownership»<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>«Volatility»<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>«Lifetime_limit»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">multiple</span><span class="re">⁾</span></span></code></pre></div>
-<div class="sourceCode" id="cb4" data-caption="Example"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>currentTarget <span class="kw">ref</span> <span class="kw">vol</span> liv <span class="kw">in</span> targets: Integer</span></code></pre></div>
+<div class="sourceCode" id="cb4" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>«Ownership»<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>«Volatility»<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>«Lifetime_limit»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">multiple</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb5" data-caption="Example"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>currentTarget <span class="kw">ref</span> <span class="kw">vol</span> liv <span class="kw">in</span> targets: Integer</span></code></pre></div>
 <h3 id="ownership">Ownership</h3>
-<div class="sourceCode" id="cb5" data-caption="Syntax"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>const<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>var<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>ref<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>ptr</span></code></pre></div>
-<div class="sourceCode" id="cb6" data-caption="Example"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>score <span class="kw">var</span>: Integer</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>PI <span class="kw">const</span>: Float64</span></code></pre></div>
+<div class="sourceCode" id="cb6" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>const<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>var<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>ref<span class="re">⁽</span><span class="an">or</span><span class="re">⁾</span>ptr</span></code></pre></div>
+<div class="sourceCode" id="cb7" data-caption="Example"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>score <span class="kw">var</span>: Integer</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>PI <span class="kw">const</span>: Float64</span></code></pre></div>
 <h3 id="volatility">Volatility</h3>
-<div class="sourceCode" id="cb7" data-caption="Syntax"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>non vol<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">or</span><span class="re">⁾⁽</span><span class="an">⤹</span><span class="re">⁾</span>vol<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾</span></span></code></pre></div>
-<div class="sourceCode" id="cb8" data-caption="Example"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>currentNode <span class="kw">ref</span> non <span class="kw">vol</span>: GraphNode</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>buttonCDown <span class="kw">vol</span>: Bool</span></code></pre></div>
+<div class="sourceCode" id="cb8" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>non vol<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">or</span><span class="re">⁾⁽</span><span class="an">⤹</span><span class="re">⁾</span>vol<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb9" data-caption="Example"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>currentNode <span class="kw">ref</span> non <span class="kw">vol</span>: GraphNode</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>buttonCDown <span class="kw">vol</span>: Bool</span></code></pre></div>
 <h3 id="lifetime-limit">Lifetime limit</h3>
-<div class="sourceCode" id="cb9" data-caption="Syntax"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>in local<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">or</span><span class="re">⁾⁽</span><span class="an">⤹</span><span class="re">⁾</span>in «Expression_group»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">or</span><span class="re">⁾⁽</span><span class="an">⤹</span><span class="re">⁾</span>out<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾</span></span></code></pre></div>
-<div class="sourceCode" id="cb10" data-caption="Example"><pre
-class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> TODO</span></code></pre></div>
+<div class="sourceCode" id="cb10" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>in local<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">or</span><span class="re">⁾⁽</span><span class="an">⤹</span><span class="re">⁾</span>in «Expression_group»<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾⁽</span><span class="an">or</span><span class="re">⁾⁽</span><span class="an">⤹</span><span class="re">⁾</span>out<span class="re">⁽</span><span class="an">⤸</span><span class="re">⁾</span></span></code></pre></div>
+<div class="sourceCode" id="cb11" data-caption="Example"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> TODO</span></code></pre></div>
 
                 </div>
             </div>

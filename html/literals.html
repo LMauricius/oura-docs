@@ -226,21 +226,26 @@ class="sourceCode oura"><code class="sourceCode oura"><span id="cb7-1"><a href="
 <p><em>Raw text</em> starts with a double quote <code>"</code>
 immediately followed by a new line. It is used for easier writing of
 text with special characters when we don’t want to use escape sequences.
-It follows special rules: - Escape sequences aren’t supported. Backslash
-<code>\</code> just becomes the <code>\</code> character of the text
-literal. - Each line of the text starts with a single quote
-<code>'</code> and spans until the end of the line in the code. All
-characters after the first <code>'</code> just become characters of the
-text, including quotes <code>'</code> and <code>"</code>. - A line that
-starts with a <code>"</code> ends the raw text. It’s not treated as an
-additional line of text literal. - Whitespace before the first
-<code>'</code> or <code>#</code> is ignored, just as lines that contain
-only whitespace (empty lines). - Multiple newlines (empty lines) just
-become a single newline of the text. - Comments are supported and
-started using <code>#</code> instead of <code>'</code>. They span until
-the end of the line. - Lines that start with anything besides
-<code>'</code>, <code>"</code> or <code>#</code> after the whitespace
-aren’t allowed.</p>
+It follows special rules:</p>
+<ul>
+<li>Escape sequences aren’t supported. Backslash <code>\</code> just
+becomes the <code>\</code> character of the text literal.</li>
+<li>Each line of the text starts with a single quote <code>'</code> and
+spans until the end of the line in the code. All characters after the
+first <code>'</code> just become characters of the text, including
+quotes <code>'</code> and <code>"</code>.</li>
+<li>A line that starts with a <code>"</code> ends the raw text. It’s not
+treated as an additional line of text literal.</li>
+<li>Whitespace before the first <code>'</code> or <code>#</code> is
+ignored, just as lines that contain only whitespace (empty lines).</li>
+<li>Multiple newlines (empty lines) just become a single newline of the
+text.</li>
+<li>Comments are supported and started using <code>#</code> instead of
+<code>'</code>. They span until the end of the line.</li>
+<li>Lines that start with anything besides <code>'</code>,
+<code>"</code> or <code>#</code> after the whitespace aren’t
+allowed.</li>
+</ul>
 <div class="sourceCode" id="cb8" data-caption="Raw text"><pre
 class="sourceCode oura"><code class="sourceCode oura"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>myText <span class="op">=</span> <span class="st">&quot;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;This is some long text...</span></span>

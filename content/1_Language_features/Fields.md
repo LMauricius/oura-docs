@@ -5,15 +5,23 @@
 ## Description
 
 Fields store values so we can identify, use and modify them.
+They usually have a *name* (with rare exceptions) which refers to the field in the code.
 
-Each field has the following:
+```{.oura caption="A field" }
+greeting = "Yo!"
+write greeting # Writes 'Yo!'
+```
+
+Each field has the following: 
+
 - **Name**: used to identify a field. Unnamed fields can also be used within tuples.
 - **Value**: data we reach through the field. Can be anything from numbers and text to more complex records.
-- **Constraint**: a set of requirements that the value always satisfies. It is a combination of:
-    - **Trait**: a record that defines what properties the value fundamentally has.
+- **Ability**: a set of properties that tells us what we can do with that field.
+    It is a combination of:
+    - **Trait**: a record that defines what requirements the value always satisfies.
         For example, `Count`{.oura}, `Real`{.oura} or `Text`{.oura}.
         More about this on the trait system pages.
-    - **Purposes**: describe how the value can be used through this field
+    - **Qualities**: describe how the value can be used through this field
 
 ## Usage
 
