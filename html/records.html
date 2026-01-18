@@ -42,90 +42,121 @@
                 <div class="pagecontent">
                     <h1 id="records">Records</h1>
 <h2 id="description">Description</h2>
-<p>Records are the building blocks of Oura programming. They are used to contain data we need, group related values, or to extend mathematical and procedural functionalities of the language.</p>
-<p>In Oura, data, functions and modules are all described by records.</p>
+<p>Records are the building blocks of Oura programming. They are used to
+contain data we need, group related values, or to extend mathematical
+and procedural functionalities of the language.</p>
+<p>In Oura, data, functions and modules are all described by
+records.</p>
 <h2 id="usage">Usage</h2>
-<p>The records are only useful when they have some <strong>values</strong>, and they themselves are contained in values. They are best viewed as ‘wrappers’ or ‘groups’ for related values, and often correspond to real-life items, concepts, and structures. The values grouped by a record are called its <em>members</em>.</p>
+<p>The records are only useful when they have some
+<strong>values</strong>, and they themselves are contained in values.
+They are best viewed as ‘wrappers’ or ‘groups’ for related values, and
+often correspond to real-life items, concepts, and structures. The
+values grouped by a record are called its <em>members</em>.</p>
 <h3 id="member-values">Member values</h3>
 <p>A record is called a <strong>group</strong> of its members.</p>
-<p>Declaring a member value also defines a <strong>getter function</strong> globally. The getter function has the same name as the member value. It accepts a single argument which the group holding this member satisfies, and returns a reference value to the member’s content when called.</p>
-<p>So if we have a local value <code>player</code> whose content has a member <code>score</code>, we can access the score’s record as <code class="sourceCode oura">score player</code>. That should be read as “<em>the</em> score <em>of</em> player”. In this case the <code>score</code> value is a member of the <code>player</code>s content record, but outside of it <code>score</code> is a getter function value.</p>
-<div class="sourceCode" id="cb1" data-caption="Member values and getters"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>pointA <span class="op">=</span> (x <span class="op">=</span> <span class="fl">1.5</span>, y <span class="op">=</span> <span class="fl">2.4</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>pointB <span class="op">=</span> (x <span class="op">=</span> <span class="fl">4.8</span>, y <span class="op">=</span> <span class="fl">6.2</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>myRectangle <span class="op">=</span> (</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    topLeftCorner <span class="op">=</span> pointA</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    bottomRightCorner <span class="op">=</span> pointB</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="co">** 2.4 is the content of the first &#39;y&#39;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co">** y is a member value of the first point record</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="co">** the first point record is the content of &#39;pointA&#39;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co">** a copy of the first point record is the content of &#39;topLeftCorner&#39;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="co">** topLeftCorner is a member of the rectangle record</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="co">** the rectangle record is the content of &#39;myRectangle&#39; value</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a><span class="co">** here, x, y, topLeftCorner and bottomRightCorner are all getter functions</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>write<span class="op">!</span> y topLeftCorner myRectangle</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="co">** The above line prints 2.4</span></span></code></pre></div>
-<p>All values are members of <em>something</em>, except for the <strong>context</strong> values. It is only important for now to know that there is a <strong>local context</strong> at every place of the code, whose members (a.k.a. the <strong>local values</strong>) can be accessed by their name alone. The local context can be accessed with the <code class="sourceCode oura"><span class="kw">local</span></code> keyword.</p>
-<div class="sourceCode" id="cb2" data-caption="Local values"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">use</span> <span class="kw">module</span> Io Std</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">use</span> write <span class="cf">with</span> Console Io</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>main <span class="op">=</span> ProgramArgs <span class="kw">mut</span> <span class="kw">vol</span> <span class="op">=&gt;</span> {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    foo <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="co">** &#39;foo&#39; is a local value</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    write<span class="op">!</span> foo <span class="co">** foo is accessed just by its name &#39;foo&#39;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>               <span class="co">** prints &#39;100&#39;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    write<span class="op">!</span> foo <span class="kw">local</span> <span class="co">** same as above, &#39;local&#39; keyword accesses the local context</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>                     <span class="co">** prints &#39;100&#39;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Declaring a member value also defines a <strong>getter
+function</strong> globally. The getter function has the same name as the
+member value. It accepts a single argument which the group holding this
+member satisfies, and returns a reference value to the member’s content
+when called.</p>
+<p>So if we have a local value <code>player</code> whose content has a
+member <code>score</code>, we can access the score’s record as <code
+class="sourceCode oura">score player</code>. That should be read as
+“<em>the</em> score <em>of</em> player”. In this case the
+<code>score</code> value is a member of the <code>player</code>s content
+record, but outside of it <code>score</code> is a getter function
+value.</p>
+<div class="sourceCode" id="cb1"
+data-caption="Member values and getters"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pointA <span class="op">=</span> (x <span class="op">=</span> <span class="fl">1.5</span>, y <span class="op">=</span> <span class="fl">2.4</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pointB <span class="op">=</span> (x <span class="op">=</span> <span class="fl">4.8</span>, y <span class="op">=</span> <span class="fl">6.2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>myRectangle <span class="op">=</span> (</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    topLeftCorner <span class="op">=</span> pointA</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    bottomRightCorner <span class="op">=</span> pointB</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> <span class="fl">2.4</span> <span class="kw">is</span> the content of the first <span class="st">&#39;y&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> y <span class="kw">is</span> a member value of the first point record</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> the first point record <span class="kw">is</span> the content of <span class="st">&#39;pointA&#39;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> a copy of the first point record <span class="kw">is</span> the content of <span class="st">&#39;topLeftCorner&#39;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> topLeftCorner <span class="kw">is</span> a member of the rectangle record</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> the rectangle record <span class="kw">is</span> the content of <span class="st">&#39;myRectangle&#39;</span> value</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> here, x, y, topLeftCorner <span class="kw">and</span> bottomRightCorner are all getter functions</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>write<span class="op">!</span> y topLeftCorner myRectangle</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> The above line prints <span class="fl">2.4</span></span></code></pre></div>
+<p>All values are members of <em>something</em>, except for the
+<strong>context</strong> values. It is only important for now to know
+that there is a <strong>local context</strong> at every place of the
+code, whose members (a.k.a. the <strong>local values</strong>) can be
+accessed by their name alone. The local context can be accessed with the
+<code class="sourceCode oura"><span class="kw">local</span></code>
+keyword.</p>
+<div class="sourceCode" id="cb2" data-caption="Local values"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="kw">module</span> Io Std</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> write <span class="cf">with</span> Console Io</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>main <span class="op">=</span> ProgramArgs <span class="kw">mut</span> <span class="kw">vol</span> <span class="op">=&gt;</span> {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    foo <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span> <span class="st">&#39;foo&#39;</span> <span class="kw">is</span> a <span class="kw">local</span> value</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    write<span class="op">!</span> foo <span class="op">**</span> foo <span class="kw">is</span> accessed just by its name <span class="st">&#39;foo&#39;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="op">**</span> prints <span class="st">&#39;100&#39;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    write<span class="op">!</span> foo <span class="kw">local</span> <span class="op">**</span> same <span class="kw">as</span> above, <span class="st">&#39;local&#39;</span> keyword accesses the <span class="kw">local</span> <span class="kw">context</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                     <span class="op">**</span> prints <span class="st">&#39;100&#39;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <h2 id="syntax">Syntax</h2>
 <h3 id="record-literal">Record literal</h3>
-<p>The record literals are written as a series of member declarations surrounded by parens (<code>(</code> and <code>)</code>).</p>
-<div class="sourceCode" id="cb3" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">** Empty record:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="co">** Singleline:</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>(«Member_Declaration»<span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="co">** Multiline:</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>«Member_Declaration»<span class="re">⁽</span><span class="an">list⤸linelist</span><span class="re">⁾</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb4" data-caption="Example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">** Empty record</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>()</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">** Singleline</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>(x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="co">** Multiline</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>(</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    z<span class="op">=</span><span class="dv">5</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>)</span></code></pre></div>
+<p>The record literals are written as a series of member declarations
+surrounded by parens (<code>(</code> and <code>)</code>).</p>
+<div class="sourceCode" id="cb3" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Empty record:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Singleline:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>(«Member_Declaration»<span class="re">⁽</span><span class="an">list</span><span class="re">⁾</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Multiline:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="re">⁽</span><span class="an">⤹</span><span class="re">⁾</span>«Member_Declaration»<span class="re">⁽</span><span class="an">list⤸linelist</span><span class="re">⁾</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb4" data-caption="Example"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Empty record</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Singleline</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>(x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Multiline</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    z<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <h3 id="member-declaration">Member declaration</h3>
-<div class="sourceCode" id="cb5" data-caption="Syntax"><pre class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">** Complete definition:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>«Value_Specification» <span class="op">=</span> «Expression»</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="co">** Complete non-constant initialization:</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>«Value_Specification» <span class="op">&lt;-</span> «Expression»</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="co">** Empty declaration:</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>«Value_Specification»</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="co">** Unnamed declaration: </span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>«Expression»</span></code></pre></div>
-<div class="sourceCode" id="cb6" data-caption="Example"><pre class="sourceCode oura"><code class="sourceCode oura"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="co">** Record with initialization:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>(score <span class="kw">var</span>: Integer <span class="op">&lt;-</span> <span class="dv">100</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="co">** Record with empty declaration:</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>(score <span class="kw">var</span>: Integer)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="co">** Record with unnamed value initialization:</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5" data-caption="Syntax"><pre
+class="sourceCode ouraspec"><code class="sourceCode ouraspec"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Complete definition:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>«Value_Specification» <span class="op">=</span> «Expression»</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Complete non<span class="op">-</span>constant initialization:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>«Value_Specification» <span class="op">&lt;-</span> «Expression»</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Empty declaration:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>«Value_Specification»</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Unnamed declaration: </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>«Expression»</span></code></pre></div>
+<div class="sourceCode" id="cb6" data-caption="Example"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Record <span class="cf">with</span> initialization:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>(score <span class="kw">var</span>: Integer <span class="op">&lt;-</span> <span class="dv">100</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Record <span class="cf">with</span> empty declaration:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>(score <span class="kw">var</span>: Integer)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">**</span> Record <span class="cf">with</span> unnamed value initialization:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">100</span>)</span></code></pre></div>
 
                 </div>
             </div>

@@ -163,8 +163,10 @@ def main():
         infilename = srcdir + "/syntaxparsers/" + subname
         if not os.path.isdir(subname):
             syntaxDefs.append(infilename)
+            print(f"Using syntax parsing specification {infilename}")
 
     # save theme
+    print(f"Saving highlight style {themestyle} to {builddir}/highlight.theme")
     result = subprocess.run(
         ["pandoc", "--print-highlight-style", themestyle], stdout=subprocess.PIPE
     )

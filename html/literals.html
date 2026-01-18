@@ -46,13 +46,18 @@
 don’t depend on any other values.</p>
 <p>There are numeric and textual literals.</p>
 <h2 id="examples">Examples</h2>
-<pre class="oura" data-caption="Integer number literal"><code>42</code></pre>
-<pre class="oura" data-caption="Real number literal"><code>3.141592</code></pre>
-<pre class="oura" data-caption="Text literal"><code>&quot;Hello world!&quot;</code></pre>
+<div class="sourceCode" id="cb1"
+data-caption="Integer number literal"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span></span></code></pre></div>
+<div class="sourceCode" id="cb2" data-caption="Real number literal"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fl">3.141592</span></span></code></pre></div>
+<div class="sourceCode" id="cb3" data-caption="Text literal"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;Hello world!&quot;</span></span></code></pre></div>
 <h2 id="numeric-literals">Numeric literals</h2>
 <p>Numeric literals are written using digits. If they contain a decimal
-dot, their trait is <code class="oura">Real</code>. Otherwise, their
-trait is <code class="oura">Integer</code>.</p>
+dot, their trait is <code class="sourceCode oura">Real</code>.
+Otherwise, their trait is <code
+class="sourceCode oura">Integer</code>.</p>
 <p>Optionally, numbers can have a prefix that specifies the numeric base
 it is written in. No matter the base, decimal dot and exponent of the
 same base are supported. Supported bases are:</p>
@@ -76,25 +81,29 @@ same base are supported. Supported bases are:</p>
 <td>Decimal</td>
 <td><em>No prefix</em></td>
 <td>0-9</td>
-<td><code class="oura">103</code></td>
+<td><code
+class="sourceCode oura"><span class="dv">103</span></code></td>
 </tr>
 <tr class="even">
 <td>Binary</td>
 <td><code>0b</code></td>
 <td>0 and 1</td>
-<td><code class="oura">0b1001011</code></td>
+<td><code
+class="sourceCode oura"><span class="bn">0b1001011</span></code></td>
 </tr>
 <tr class="odd">
 <td>Octal</td>
 <td><code>0o</code></td>
 <td>0-7</td>
-<td><code class="oura">0o742</code></td>
+<td><code
+class="sourceCode oura"><span class="bn">0o742</span></code></td>
 </tr>
 <tr class="even">
 <td>Hexadecimal</td>
 <td><code>0x</code></td>
 <td>0-9, A, B, C, D, E, F</td>
-<td><code class="oura">0xFF8E32</code></td>
+<td><code
+class="sourceCode oura"><span class="bn">0xFF8E32</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -106,26 +115,31 @@ underscore <code>_</code>, followed by either <code>+</code> or
 <code>-</code> for positive and negative exponents and the exponent
 itself. The exponent is always written as a decimal number, but the base
 of the power is the same as for the significand.</p>
-<pre class="oura" data-caption="Scientific notation of a literal"><code>avogadro = 6.02_+23</code></pre>
+<div class="sourceCode" id="cb4"
+data-caption="Scientific notation of a literal"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>avogadro <span class="op">=</span> <span class="fl">6.02</span><span class="er">_</span><span class="op">+</span><span class="dv">23</span></span></code></pre></div>
 <p>Numbers can also optionally have underscores between digits, for
 readability. Unless it’s the start of the exponent, underscores are
 ignored.</p>
-<pre class="oura" data-caption="Underscores between digits"><code>prize = 1_000_500_000</code></pre>
+<div class="sourceCode" id="cb5"
+data-caption="Underscores between digits"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>prize <span class="op">=</span> <span class="dv">1_000_500_000</span></span></code></pre></div>
 <h2 id="textual-literals">Textual literals</h2>
-<p>Textual literals all have the trait <code class="oura">Text</code>.
-They are strings of characters used to build messages that will at some
-point be shown to the user in a human-understandable form. The
-characters themselves are stored using numeric codes according to UTF-8
-text format.</p>
+<p>Textual literals all have the trait <code
+class="sourceCode oura">Text</code>. They are strings of characters used
+to build messages that will at some point be shown to the user in a
+human-understandable form. The characters themselves are stored using
+numeric codes according to UTF-8 text format.</p>
 <p><em>Normal text</em> is surrounded by either single <code>'</code> or
 double <code>"</code> quotes. It cannot be split along multiple lines
 and cannot contain non-printable characters. The quotes aren’t included
 in the literal’s characters, but everything inbetween is. For special
 characters (eg. invisible or unsupported symbols) you can use escape
 sequences.</p>
-<pre class="oura" data-caption="Text literals"><code>helloText = &#39;Hello,&#39;
-worldText = &quot;World!
-write (helloText + worldText) # Writes &#39;Hello,world!&#39;</code></pre>
+<div class="sourceCode" id="cb6" data-caption="Text literals"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>helloText <span class="op">=</span> <span class="st">&#39;Hello,&#39;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>worldText <span class="op">=</span> <span class="st">&quot;World!</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="er">write </span>(helloText <span class="op">+</span> worldText) <span class="co"># Writes &#39;Hello,world!&#39;</span></span></code></pre></div>
 <p><em>Escape sequences</em> start with a backslash <code>\</code>. Each
 sequence represents a <em>single</em> character in the text. The
 supported sequences are in the table below:</p>
@@ -205,8 +219,9 @@ supported sequences are in the table below:</p>
 </tr>
 </tbody>
 </table>
-<pre class="oura" data-caption="Text literals"><code># Writes &#39;Regards,&#39; and &#39;Oura&#39;s author&#39; in two lines
-write &quot;Regards,\nOura&#39;s author&quot;</code></pre>
+<div class="sourceCode" id="cb7" data-caption="Text literals"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writes &#39;Regards,&#39; and &#39;Oura&#39;s author&#39; in two lines</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>write <span class="st">&quot;Regards,</span><span class="ch">\n</span><span class="st">Oura&#39;s author&quot;</span></span></code></pre></div>
 <p><em>Raw text</em> starts with a double quote <code>"</code>
 immediately followed by a new line. It is used for easier writing of
 text with special characters when we don’t want to use escape sequences.
@@ -225,15 +240,16 @@ started using <code>#</code> instead of <code>'</code>. They span until
 the end of the line. - Lines that start with anything besides
 <code>'</code>, <code>"</code> or <code>#</code> after the whitespace
 aren’t allowed.</p>
-<pre class="oura" data-caption="Raw text"><code>myText = &quot;
-    &#39;This is some long text...
-    # This is a comment, inside the text literal!
-    # Next we have another line of the literal:
-    &#39;We can have special characters in this text, like \, &#39;, and &quot;.
-    &#39;
-    &#39;Regards,
-    &#39;Oura&#39;s author.
-    &quot; # This is the end of a raw textual literal</code></pre>
+<div class="sourceCode" id="cb8" data-caption="Raw text"><pre
+class="sourceCode oura"><code class="sourceCode oura"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>myText <span class="op">=</span> <span class="st">&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;This is some long text...</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is a comment, inside the text literal!</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Next we have another line of the literal:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;We can have special characters in this text, like \, &#39;</span>, <span class="kw">and</span> <span class="st">&quot;.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;Regards,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;Oura&#39;s author.</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot; # This is the end of a raw textual literal</span></span></code></pre></div>
 
                 </div>
             </div>

@@ -93,7 +93,6 @@
 				<keyword attribute="Import" String="import" context="#stay"/>
 				<keyword attribute="Definition Keyword" String="defs" context="#stay"/>
 				<keyword attribute="Trait Specifier" String="trait-specifiers" context="#stay"/>
-				<keyword attribute="Ownership Specifier" String="ownership-specifiers" context="#stay"/>
 				<keyword attribute="Declaration Specifier" String="decl-specifiers" context="#stay"/>
 				<keyword attribute="Operator Keyword" String="operators" context="#stay"/>
 				<keyword attribute="Flow Control Keyword" String="flow" context="#stay"/>
@@ -104,7 +103,8 @@
 				<DetectChar attribute="Normal Text" char="[" context="List" beginRegion="List"/>
 				<DetectChar attribute="Normal Text" char="(" context="Object" beginRegion="Object"/>
 
-				<Detect2Chars attribute="Comment"  char="*" char1="*" context="Star comment"/>
+				<DetectChar attribute="Comment"  char="#" context="Hash comment"/>
+				<Detect2Chars attribute="Comment"  char="/" char1='*' context="Multiline comment"/>
 
 				<IncludeRules context="Number" />
 				<IncludeRules context="CommentVariants" />
@@ -245,10 +245,17 @@
 
 			<!-- Comments -->
 
-			<context name="Star comment" attribute="Comment" lineEndContext="#pop">
+			<context name="Hash comment" attribute="Comment" lineEndContext="#pop">
 				<DetectSpaces />
 				<!--IncludeRules context="##Comments" /-->
 				<DetectIdentifier/>
+			</context>
+
+			<context name="Multiline comment" attribute="Comment" lineEndContext="#pop">
+				<DetectSpaces />
+				<!--IncludeRules context="##Comments" /-->
+				<DetectIdentifier/>
+				<Detect2Chars attribute="Comment"  char="*" char1='/' context="#pop"/>
 			</context>
 
 			<context name="Triple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
