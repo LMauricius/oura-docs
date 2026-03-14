@@ -54,11 +54,11 @@ data-caption="A Hello world example"><pre
 class="sourceCode oura"><code class="sourceCode oura"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a &#39;Hello world!&#39; example</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to write to console</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>import write <span class="cf">with</span> [target <span class="op">=</span> Console <span class="kw">module</span> Io Std]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>import <span class="kw">module</span> Io Std</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># The main program</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>main[args, import write] <span class="kw">var</span> <span class="op">=&gt;</span> {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    write <span class="st">&quot;Hello world!&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>main[args, import Console Io] <span class="op">=&gt;</span> {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    write[Console<span class="op">!</span>, <span class="st">&quot;Hello world!&quot;</span>]</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Most examples don’t mention the <em>modules</em> or the <em>main
 function</em>. Unless they mention those, it is assumed the necessary
@@ -68,11 +68,12 @@ template:</p>
 <div class="sourceCode" id="cb2"
 data-caption="The Oura docs example code template"><pre
 class="sourceCode oura"><code class="sourceCode oura"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>import <span class="kw">module</span> Io Std</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>import (read, write) <span class="cf">with</span> [target <span class="op">=</span> Console Io]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>main[args, import (read, write)] <span class="op">=&gt;</span> {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Insert example code snippet here</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>main[args, import Console Io] <span class="op">=&gt;</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    import (read, write) <span class="cf">with</span> [target <span class="op">=</span> Console]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Insert example code snippet here</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The exact meaning of all special words and symbols will be explained
 in other chapters. For now, assume the code put into the main function
 can be run.</p>

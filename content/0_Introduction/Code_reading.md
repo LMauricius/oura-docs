@@ -12,11 +12,11 @@ Multiline comments are surrounded by `/*` and `*/` characters.
 # This is a 'Hello world!' example
 
 # We need to write to console
-import write with [target = Console module Io Std]
+import module Io Std
 
 # The main program
-main[args, import write] var => {
-    write "Hello world!"
+main[args, import Console Io] => {
+    write[Console!, "Hello world!"]
 }
 ```
 
@@ -27,9 +27,10 @@ If you want to run them yourself, place them inside this code template:
 
 ```{.oura caption="The Oura docs example code template"}
 import module Io Std
-import (read, write) with [target = Console Io]
 
-main[args, import (read, write)] => {
+main[args, import Console Io] => {
+    import (read, write) with [target = Console]
+
     # Insert example code snippet here
 }
 ```
