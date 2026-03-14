@@ -8,20 +8,53 @@ import sys
 from pathlib import Path
 
 
-class Page:
-    def __init__(self) -> None:
-        self.file: str = ""
-        self.subPages: dict[str, Page] = {}
-        self.order: list[str] = []
-        self.name: str = ""
-        self.level: int = 0
+# ---- Colored exceptions --------------------------------------------------------------------------
 
+
+def set_highlighted_excepthook():
+    import sys, traceback
+    from pygments import highlight
+    from pygments.lexers import get_lexer_by_name
+    from pygments.formatters import TerminalFormatter
+
+    lexer = get_lexer_by_name("pytb" if sys.version_info.major < 3 else "py3tb")
+    formatter = TerminalFormatter()
+
+    def myexcepthook(type, value, tb):
+        tbtext = "".join(traceback.format_exception(type, value, tb))
+        sys.stderr.write(highlight(tbtext, lexer, formatter))
+
+    sys.excepthook = myexcepthook
+
+
+set_highlighted_excepthook()
+
+# ---- Terminal colors ----
+Default = "\033[0m"
+Black = "\033[30m"
+Red = "\033[31m"
+Green = "\033[32m"
+Yellow = "\033[33m"
+Blue = "\033[34m"
+Magenta = "\033[35m"
+Cyan = "\033[36m"
+Gray = "\033[37m"
+StrongBlack = "\033[30;1m"
+StrongRed = "\033[31;1m"
+StrongGreen = "\033[32;1m"
+StrongYellow = "\033[33;1m"
+StrongBlue = "\033[34;1m"
+StrongMagenta = "\033[35;1m"
+StrongCyan = "\033[36;1m"
+StrongGray = "\033[37;1m"
+
+# ---- Utilities -----------------------------------------------------------------------------------
 
 def cleanName(fname: str) -> str:
     fname = os.path.splitext(os.path.basename(fname))[0]
 
     # Clean leading digits
-    m: re.Match = re.match(r"[0-9]", fname)
+    m = re.match(r"[0-9]+", fname)
     if m:
         fname = fname[m.end() :]
 
@@ -33,6 +66,18 @@ def cleanName(fname: str) -> str:
 
 def safeName(name: str) -> str:
     return name.translate(name.maketrans(" ", "_")).lower()
+
+
+# ---- Page structure ------------------------------------------------------------------------------
+
+
+class Page:
+    def __init__(self) -> None:
+        self.file: str = ""
+        self.subPages: dict[str, Page] = {}
+        self.order: list[str] = []
+        self.name: str = ""
+        self.level: int = 0
 
 
 def getSourceStructure(path: str, level: int = 0) -> Page:
@@ -64,6 +109,8 @@ def getSourceStructure(path: str, level: int = 0) -> Page:
     return src
 
 
+# ---- Page building -------------------------------------------------------------------------------
+
 def getHtmlContents(src: Page, urlPrefix="", index=0, indent=0, current="") -> str:
     ret = ""
     indentstr = 4 * indent * " "
@@ -92,18 +139,24 @@ def getHtmlContents(src: Page, urlPrefix="", index=0, indent=0, current="") -> s
 
             ret += indentstr + f"</li>\n"
         else:
-            raise RuntimeError(f"subpage {s} does not exist")
+            raise RuntimeError(
+                f"{Red}Subpage '{Cyan}{s}{Default}' from '{Cyan}{src.file}{Red}' does not exist{Default}"
+            )
 
     return ret
 
 
 def buildHtmlChunks(
-    src: Page, currentPage: Page, srcdir: str, builddir: str, syntaxDefs: "list[str]"
+    src: Page,
+    currentPage: Page,
+    srcdir: str,
+    builddir: str,
+    syntaxDefs: "list[str]",
 ):
     # Convert current file
     if currentPage.file != "":
         outfilename = builddir + "/" + safeName(currentPage.name) + ".html"
-        print(f"Checking chunk {outfilename}...")
+        print(f"Checking chunk '{Cyan}{outfilename}{Default}'...")
         if (not os.path.exists(outfilename)) or os.path.getmtime(
             currentPage.file
         ) > os.path.getmtime(outfilename):
@@ -122,12 +175,14 @@ def buildHtmlChunks(
             )
             pageContent: str = result.stdout.decode("utf8")
 
-            print(f"Generating chunk {outfilename}...")
+            print(f"Generating chunk '{Cyan}{outfilename}{Default}'...")
             with open(outfilename, "w+") as outfile:
                 outfile.write(pageContent)
-                print(f"Generated chunk {outfilename}")
+                print(
+                    f"{StrongGreen}Generated chunk '{Cyan}{outfilename}{StrongGreen}'{Default}"
+                )
         else:
-            print(f"Generating not needed")
+            print(f"{StrongGreen}Generating not needed{Default}")
 
     # convert sub pages
     for name, subpage in currentPage.subPages.items():
@@ -158,33 +213,38 @@ def main():
     themestyle = sys.argv[5]
 
     # list syntaxdefs
+    print(f"{StrongBlack}[Listing syntax definitions]{Default}")
+    print(f"From '{Cyan}{srcdir + "/syntaxparsers"}{Default}'")
     syntaxDefs = []
     for subname in os.listdir(srcdir + "/syntaxparsers"):
         infilename = srcdir + "/syntaxparsers/" + subname
         if not os.path.isdir(subname):
             syntaxDefs.append(infilename)
-            print(f"Using syntax parsing specification {infilename}")
+            print(f"Using syntax parsing specification '{Cyan}{infilename}{Default}'")
 
     # save theme
-    print(f"Saving highlight style {themestyle} to {builddir}/highlight.theme")
+    print(f"{StrongBlack}[Highlight theme]{Default}")
+    print(
+        f"Saving highlight style {StrongCyan}{themestyle}{Default} to '{Cyan}{builddir}/highlight.theme{Default}'"
+    )
     result = subprocess.run(
         ["pandoc", "--print-highlight-style", themestyle], stdout=subprocess.PIPE
     )
     Path(builddir).mkdir(parents=True, exist_ok=True)
     with open(f"{builddir}/highlight.theme", "w+") as ofile:
         ofile.write(result.stdout.decode("utf8"))
-    subprocess.run(
-        [
-            "pandoc",
-            f"--template={srcdir}/pandoc-template-syntax.css",
-            srcdir + "/pandoc-used-syntax-blocks.md",
-            "--highlight-style",
-            f"{builddir}/highlight.theme",
-            "-o",
-            targetdir + "/syntax_style.css",
-        ]
-        + [x for d in syntaxDefs for x in ("--syntax-definition", d)]
-    )
+    args = [
+        "pandoc",
+        f"--template={srcdir}/pandoc-template-syntax.css",
+        srcdir + "/pandoc-used-syntax-blocks.md",
+        "--highlight-style",
+        f"{builddir}/highlight.theme",
+        "-o",
+        targetdir + "/syntax_style.css",
+    ]
+    for syntaxDef in syntaxDefs:
+        args += ["--syntax-definition", syntaxDef]
+    subprocess.run(args)
 
     # get source
     src = getSourceStructure(contentdir, -1)
@@ -199,6 +259,8 @@ def main():
     # print(getHtmlContents(src, index = 1))
 
     # Check if the file structure has changed
+    print(f"{StrongBlack}[Checking cached ToC]{Default}")
+    print(f"from '{Cyan}{builddir + "/cached-contents.html"}{Default}'")
     unselectedContents = getHtmlContents(src, index=1, indent=2, current="")
     contentsUpdated = True
     if os.path.exists(builddir + "/cached-contents.html"):
@@ -210,12 +272,16 @@ def main():
             file.write(unselectedContents)
 
     if contentsUpdated:
-        print("Contents changed, rebuilding all...")
+        print(f"{Yellow}Contents changed, rebuilding all...{Default}")
+    else:
+        print(f"{StrongGreen}Contents haven't changed{Default}")
 
     # Build html files in /build dir
+    print(f"{StrongBlack}[Building chunks]{Default}")
     buildHtmlChunks(src, src, srcdir + "/content", builddir, syntaxDefs)
 
     # Generate final html in target dir and copy needed files
+    print(f"{StrongBlack}[Outputting html]{Default}")
     for subname in os.listdir(builddir):
         infilename = builddir + "/" + subname
         if (
@@ -229,7 +295,7 @@ def main():
                 or (not os.path.exists(outfilename))
                 or os.path.getmtime(infilename) > os.path.getmtime(outfilename)
             ):
-                print(f"Building {outfilename}")
+                print(f"Building '{Cyan}{outfilename}{Default}'")
                 buildHtmlFile(templ, src, infilename, outfilename)
 
     # Copy needed files
@@ -239,4 +305,7 @@ def main():
     )
 
 
-main()
+try:
+    main()
+except RuntimeError as e:
+    print(e)
